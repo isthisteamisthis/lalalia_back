@@ -1,12 +1,13 @@
 package com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.entity;
 
+import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.AiSongNoVO;
+import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.UserNoVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -19,11 +20,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postNo;
 
-    @Column
-    private Long userNo;
-
-    @Column
-    private Long aiSongNo;
 
     @Column
     private Date date;
@@ -37,15 +33,21 @@ public class Post {
     @Column
     private String content;
 
+    @Embedded
+    private UserNoVO userNoVO;
+
+    @Embedded
+    private AiSongNoVO aiSongNoVO;
+
     @Builder
-    public Post(Long postNo, Long userNo, Long aiSongNo, Date date, int likeCnt, String title, String content) {
+    public Post(Long postNo, Date date, int likeCnt, String title, String content, UserNoVO userNoVO, AiSongNoVO aiSongNoVO) {
         this.postNo = postNo;
-        this.userNo = userNo;
-        this.aiSongNo = aiSongNo;
         this.date = date;
         this.likeCnt = likeCnt;
         this.title = title;
         this.content = content;
+        this.userNoVO = userNoVO;
+        this.aiSongNoVO = aiSongNoVO;
     }
 
 }

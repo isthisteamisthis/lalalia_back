@@ -1,5 +1,6 @@
 package com.isthisteamisthis.umchiumtee.usersong.command.domain.aggregate.entity;
 
+import com.isthisteamisthis.umchiumtee.usersong.command.domain.aggregate.vo.SongDataNoVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +21,6 @@ public class UserSong {
     @Column
     private Long userNo;
 
-    @Column
-    private Long songDataNo;
 
     @Column
     private String songName;
@@ -35,15 +34,18 @@ public class UserSong {
     @Column
     private String wavFile;
 
+    @Embedded
+    private SongDataNoVO songDataNoVO;
+
     @Builder
-    public UserSong(Long userSongNo, Long userNo, Long songDataNo, String songName, Float score, Float songLength, String wavFile, String avg) {
+    public UserSong(Long userSongNo, Long userNo, String songName, Float score, Float songLength, String wavFile, SongDataNoVO songDataNoVO) {
         this.userSongNo = userSongNo;
         this.userNo = userNo;
-        this.songDataNo = songDataNo;
         this.songName = songName;
         this.score = score;
         this.songLength = songLength;
         this.wavFile = wavFile;
+        this.songDataNoVO = songDataNoVO;
     }
 
 }
