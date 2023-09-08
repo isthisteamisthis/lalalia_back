@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-@Table(name = "TBL_AISONG")
+@Table(name = "TBL_AI_SONG")
 public class AiSong {
 
     @Id
