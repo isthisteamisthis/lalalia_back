@@ -21,6 +21,9 @@ public class SongData {
     private String songName;
 
     @Column
+    private String songSinger;
+
+    @Column
     private Float songLength;
 
     @Column
@@ -35,14 +38,19 @@ public class SongData {
     @Column
     private String originalFile;
 
+    @Column
+    private String imageUrl;
+
     @Builder
-    public SongData(Long songDataNo, String songName, Float songLength, Float maxFreq, Float minFreq, String mrFile, String originalFile) {
+    public SongData(Long songDataNo, String songName, String songSinger, Float songLength, Float maxFreq, Float minFreq, String mrFile, String originalFile, String imageUrl) {
         this.songDataNo = songDataNo;
         this.songName = songName;
+        this.songSinger = songSinger;
         this.songLength = songLength;
         this.maxFreq = maxFreq;
         this.minFreq = minFreq;
         this.mrFile = mrFile;
         this.originalFile = originalFile;
+        this.imageUrl = imageUrl;
     }
 }
