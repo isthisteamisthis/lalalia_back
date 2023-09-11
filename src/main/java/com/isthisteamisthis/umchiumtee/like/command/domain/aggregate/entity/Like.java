@@ -24,4 +24,5 @@ public class Like implements Serializable {
     public Like(LikeVO likeVO) {
         this.likeVO = likeVO;
     }
+
 }
