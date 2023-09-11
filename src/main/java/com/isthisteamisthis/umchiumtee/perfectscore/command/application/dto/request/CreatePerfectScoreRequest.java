@@ -11,7 +11,7 @@ import javax.persistence.Embedded;
 public class CreatePerfectScoreRequest {
     private final Long userNo;
     private final String songName;
-    private final Float score;
+//    private final Float score;
     private final Float songLength;
     private final String wavFile;
     private final Long songDataNo;
@@ -24,9 +24,9 @@ public class CreatePerfectScoreRequest {
         return songName;
     }
 
-    public Float getScore() {
-        return score;
-    }
+//    public Float getScore() {
+//        return score;
+//    }
 
     public Float getSongLength() {
         return songLength;
@@ -39,4 +39,6 @@ public class CreatePerfectScoreRequest {
     public Long getSongDataNo() {
         return songDataNo;
     }
+
+
 }
