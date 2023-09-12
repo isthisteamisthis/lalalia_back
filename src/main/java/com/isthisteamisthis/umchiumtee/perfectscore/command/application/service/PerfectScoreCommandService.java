@@ -6,9 +6,13 @@ import com.isthisteamisthis.umchiumtee.perfectscore.command.domain.aggregate.ent
 import com.isthisteamisthis.umchiumtee.perfectscore.command.domain.aggregate.vo.SongDataNoVO;
 import com.isthisteamisthis.umchiumtee.perfectscore.command.domain.aggregate.vo.UserNoVO;
 import com.isthisteamisthis.umchiumtee.perfectscore.command.domain.repository.PerfectScoreCommandRespository;
+import com.isthisteamisthis.umchiumtee.perfectscore.command.infrastructure.service.PerfectScoreInfraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -16,13 +20,13 @@ public class PerfectScoreCommandService {
 
     private final PerfectScoreCommandRespository perfectScoreCommandRespository;
     @Transactional
-    public PerfectScoreCommandResponse createPerfectScore(CreatePerfectScoreRequest request, Float score) {
+    public PerfectScoreCommandResponse createPerfectScore(CreatePerfectScoreRequest request, Float score, String perfectScoreWav) {
 
         PerfectScore perfectScore = perfectScoreCommandRespository.save(PerfectScore.builder()
                 .songDataNoVO(new SongDataNoVO(request.getSongDataNo()))
                 .songName(request.getSongName())
                 .songLength(request.getSongLength())
-                .wavFile(request.getWavFile())
+                .wavFile(perfectScoreWav)
                 .userNoVO(new UserNoVO(request.getUserNo()))
                 .score(score)
                 .build());
