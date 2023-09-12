@@ -13,8 +13,6 @@ public class UserCommandResponse {
     private final String email;
     private final String userIntro;
     private final Float avgScore;
-    private final Float minRange;
-    private final Float maxRange;
     private final String category;
 
 
@@ -26,8 +24,6 @@ public class UserCommandResponse {
                 user.getEmail(),
                 user.getUserIntro(),
                 user.getAvgScore(),
-                user.getMinRange(),
-                user.getMaxRange(),
                 user.getCategory()
         );
     }
@@ -55,12 +51,6 @@ public class UserCommandResponse {
     public Float getAvgScore() {
         return avgScore;
     }
-
-    public Float getMinRange() {
-        return minRange;
-    }
-
-    public Float getMaxRange() { return maxRange; }
 
     public String getCategory() {
         return category;
