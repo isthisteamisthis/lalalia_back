@@ -33,24 +33,24 @@ public class User {
     private Float avgScore;
 
     @Column
-    private Float maxFreq;
+    private Float maxRange;
 
     @Column
-    private Float minFreq;
+    private Float minRange;
 
     @Column
     private String category;
 
     @Builder
-    public User(Long userNo, String userId, String password, String email, String userIntro, Float avgScore, Float maxFreq, Float minFreq, String category) {
+    public User(Long userNo, String userId, String password, String email, String userIntro, Float avgScore, Float maxRange, Float minRange, String category) {
         this.userNo = userNo;
         this.userId = userId;
         this.password = password;
         this.email = email;
         this.userIntro = userIntro;
         this.avgScore = avgScore;
-        this.maxFreq = maxFreq;
-        this.minFreq = minFreq;
+        this.maxRange = maxRange;
+        this.minRange = minRange ;
         this.category = category;
     }
 

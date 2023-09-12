@@ -20,8 +20,7 @@ public class PerfectScore {
     private Long perfectScoreNo;
 
     @Column
-    private UserNoVO userNo;
-
+    private UserNoVO userNoVO;
 
     @Column
     private String songName;
@@ -39,9 +38,9 @@ public class PerfectScore {
     private SongDataNoVO songDataNoVO;
 
     @Builder
-    public PerfectScore(Long perfectScoreNo, UserNoVO userNo, String songName, Float score, Float songLength, String wavFile, SongDataNoVO songDataNoVO) {
+    public PerfectScore(Long perfectScoreNo, UserNoVO userNoVO, String songName, Float score, Float songLength, String wavFile, SongDataNoVO songDataNoVO) {
         this.perfectScoreNo = perfectScoreNo;
-        this.userNo = userNo;
+        this.userNoVO = userNoVO;
         this.songName = songName;
         this.score = score;
         this.songLength = songLength;
