@@ -12,14 +12,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-public class RangeVO {
+public class MaxRangeVO {
 
     @Column
-    private Float frequency;
+    private Float maxFrequency;
 
     @Column
-    private String note;
+    private String maxNote;
 
     @Column
-    private String octave;
+    private String maxOctave;
 }

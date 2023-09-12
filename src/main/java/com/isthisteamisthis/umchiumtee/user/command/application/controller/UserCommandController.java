@@ -25,21 +25,24 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final SaveWAVFileService saveWAVFileService;
 
     @Operation(summary = "최고 음역대 생성")
     @PostMapping("/api/max-voice-range")
     public ResponseEntity<ApiResponse> createMaxVoiceRange(VoiceRangeRequest request, @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
 
         MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(request.getUserNo(), rangeWav);
+
+        userCommandService.addMaxVoiceRange(maxResponse);
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", maxResponse));
     }
 
     @Operation(summary = "최저 음역대 생성")
-    @PostMapping("/api/max-voice-range")
+    @PostMapping("/api/min-voice-range")
     public ResponseEntity<ApiResponse> createMinVoiceRange(VoiceRangeRequest request, @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
 
         MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(request.getUserNo(), rangeWav);
+
+        userCommandService.addMinVoiceRange(minResponse);
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
     }
 
