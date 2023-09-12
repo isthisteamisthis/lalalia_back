@@ -1,4 +1,4 @@
-package com.isthisteamisthis.umchiumtee.like.command.domain.aggregate.vo;
+package com.isthisteamisthis.umchiumtee.message.command.domain.aggregate.vo;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -13,17 +13,9 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @EqualsAndHashCode
-public class LikeVO implements Serializable {
+public class GetUserNoVO implements Serializable {
 
     @Column
-    private Long postNo;
+    private Long getUserNo;
 
-    @Column
-    private Long userNo;
-
-    public LikeVO(Long postNo, Long userNo) {
-        this.postNo = postNo;
-        this.userNo = userNo;
-    }
-    //참 잘했어요!!
 }

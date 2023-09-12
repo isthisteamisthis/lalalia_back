@@ -1,6 +1,7 @@
 package com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.entity;
 
-import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.AiSongNoVO;
+import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.ComposeSongVO;
+import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.PerfectScoreVO;
 import com.isthisteamisthis.umchiumtee.post.command.domain.aggregate.vo.UserNoVO;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -37,17 +38,21 @@ public class Post {
     private UserNoVO userNoVO;
 
     @Embedded
-    private AiSongNoVO aiSongNoVO;
+    private ComposeSongVO composeSongVO;
+
+    @Embedded
+    private PerfectScoreVO perfectScoreVO;
 
     @Builder
-    public Post(Long postNo, Date date, int likeCnt, String title, String content, UserNoVO userNoVO, AiSongNoVO aiSongNoVO) {
+    public Post(Long postNo, Date date, int likeCnt, String title, String content, UserNoVO userNoVO, ComposeSongVO composeSongVO, PerfectScoreVO perfectScoreVO) {
         this.postNo = postNo;
         this.date = date;
         this.likeCnt = likeCnt;
         this.title = title;
         this.content = content;
         this.userNoVO = userNoVO;
-        this.aiSongNoVO = aiSongNoVO;
+        this.composeSongVO = composeSongVO;
+        this.perfectScoreVO = perfectScoreVO;
     }
 
 }
