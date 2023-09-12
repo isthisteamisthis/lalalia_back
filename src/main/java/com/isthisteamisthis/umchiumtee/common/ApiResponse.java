@@ -1,7 +1,9 @@
 package com.isthisteamisthis.umchiumtee.common;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+@Getter
 @RequiredArgsConstructor
 public class ApiResponse {
 
