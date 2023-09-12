@@ -12,14 +12,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
-public class MinRangeVO {
+public class RangeVO {
 
     @Column
-    private Float minFreq;
+    private Float frequency;
 
     @Column
-    private String minNote;
+    private String note;
 
     @Column
-    private String minOctave;
+    private String octave;
 }

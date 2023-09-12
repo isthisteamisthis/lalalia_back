@@ -1,7 +1,6 @@
 package com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.entity;
 
-import com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.vo.MaxRangeVO;
-import com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.vo.MinRangeVO;
+import com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.vo.RangeVO;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,16 +34,16 @@ public class User {
     private Float avgScore;
 
     @Embedded
-    private MaxRangeVO maxRange;
+    private RangeVO maxRange;
 
     @Embedded
-    private MinRangeVO minRange;
+    private RangeVO minRange;
 
     @Column
     private String category;
 
     @Builder
-    public User(Long userNo, String userId, String password, String email, String userIntro, Float avgScore, MaxRangeVO maxRange, MinRangeVO minRange, String category) {
+    public User(Long userNo, String userId, String password, String email, String userIntro, Float avgScore, RangeVO maxRange, RangeVO minRange, String category) {
         this.userNo = userNo;
         this.userId = userId;
         this.password = password;
