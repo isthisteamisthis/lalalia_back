@@ -18,10 +18,10 @@ public class User {
     private Long userNo;
 
     @Column
-    private String userId;
+    private Long userId;
 
     @Column
-    private String password;
+    private String nickname;
 
     @Column
     private String email;
@@ -42,10 +42,10 @@ public class User {
     private String category;
 
     @Builder
-    public User(Long userNo, String userId, String password, String email, String userIntro, Float avgScore, Float maxRange, Float minRange, String category) {
+    public User(Long userNo, Long userId,String nickname, String email, String userIntro, Float avgScore, Float maxRange, Float minRange, String category) {
         this.userNo = userNo;
         this.userId = userId;
-        this.password = password;
+        this.nickname = nickname;
         this.email = email;
         this.userIntro = userIntro;
         this.avgScore = avgScore;
