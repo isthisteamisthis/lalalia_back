@@ -2,26 +2,29 @@ package com.isthisteamisthis.lalalia.user.command.application.dto.response;
 
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MinRangeVO;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 @RequiredArgsConstructor
-public class MinVoiceRangeResponse {
+@ToString
+public class MinVoiceRangeResponse implements Serializable {
 
-    private final Long userNo;
-    private final MinRangeVO minRangeVO;
+    private final String lowestfrequency;
+    private final String note;
+    private final String octave;
 
-    public static MinVoiceRangeResponse from(User user) {
-        return new MinVoiceRangeResponse(
-                user.getUserNo(),
-                user.getMinRange()
-        );
+    public String getLowestfrequency() {
+        return lowestfrequency;
     }
 
-    public Long getUserNo() {
-        return userNo;
+    public String getNote() {
+        return note;
     }
 
-    public MinRangeVO getMinRangeVO() {
-        return minRangeVO;
+    public String getOctave() {
+        return octave;
     }
 }

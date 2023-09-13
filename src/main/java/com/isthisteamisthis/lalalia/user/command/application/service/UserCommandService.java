@@ -5,6 +5,8 @@ import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoi
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.UserCommandResponse;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MaxRangeVO;
+import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MinRangeVO;
 import com.isthisteamisthis.lalalia.user.command.domain.repository.UserCommandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,29 +21,28 @@ public class UserCommandService {
     private final UserCommandRepository userCommandRepository;
     @Transactional
     public UserCommandResponse createNewUser(CreateUserRequest userDTO) {
-        //음역대 측정 메소드 결과물 -> 빌더 사용 시 넣어주기
 
-        User user = userCommandRepository.save(User.builder().build());  // 카카오 로그인 시 넘어오는 정보 넣기
+        User user = userCommandRepository.save(User.builder().build());
 
         return UserCommandResponse.from(user);
     }
 
     @Transactional
-    public void addMaxVoiceRange(MaxVoiceRangeResponse response) {
+    public void addMaxVoiceRange(Long id, MaxVoiceRangeResponse response) {
 
-        User user = userCommandRepository.findById(response.getUserNo()).orElseThrow(
+        User user = userCommandRepository.findById(1L).orElseThrow(
                 NoSuchElementException::new);
 
-        user.addMaxVoiceRange(response.getMaxRangeVO());
+        user.addMaxVoiceRange(new MaxRangeVO(Float.parseFloat(response.getHighestfrequency()), response.getNote(), response.getOctave()));
     }
 
     @Transactional
-    public void addMinVoiceRange(MinVoiceRangeResponse response) {
+    public void addMinVoiceRange(Long id, MinVoiceRangeResponse response) {
 
-        User user = userCommandRepository.findById(response.getUserNo()).orElseThrow(
+        User user = userCommandRepository.findById(1L).orElseThrow(
                 NoSuchElementException::new);
 
-        user.addMinVoiceRange(response.getMinRangeVO());
+        user.addMinVoiceRange(new MinRangeVO(Float.parseFloat(response.getLowestfrequency()), response.getNote(), response.getOctave()));
     }
 
 

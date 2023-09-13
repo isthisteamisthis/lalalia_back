@@ -40,7 +40,7 @@ public class SaveWAVFileService {
         return perfectScoreDirectory + "\\" + uniqueFileName;
     }
 
-    public String saveVoiceRangeFile(MultipartFile voiceRangeWav) throws IOException {
+    public String saveVoiceRangeFile(MultipartFile voiceRangeWav) throws IOException {  //test 용
         File directory = new File(voiceRangeDirectory);
         if (!directory.exists()) {
             directory.mkdirs();
@@ -48,7 +48,7 @@ public class SaveWAVFileService {
 
         String uniqueFileName = UUID.randomUUID().toString() + ".wav";
 
-        Path filePath = Paths.get(perfectScoreDirectory, uniqueFileName);
+        Path filePath = Paths.get(voiceRangeDirectory, uniqueFileName);
 
         try (InputStream inputStream = voiceRangeWav.getInputStream();
              OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
@@ -65,4 +65,5 @@ public class SaveWAVFileService {
 
         return voiceRangeDirectory + "\\" + uniqueFileName;
     }
+
 }

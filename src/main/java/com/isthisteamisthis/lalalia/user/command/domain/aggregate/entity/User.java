@@ -54,9 +54,7 @@ public class User {
         this.category = category;
     }
 
-    public void addMaxVoiceRange(MaxRangeVO maxRange) {
-        this.maxRange = maxRange;
-    }
+    public void addMaxVoiceRange(MaxRangeVO maxRange) { this.maxRange = maxRange; }
 
     public void addMinVoiceRange(MinRangeVO minRange) {
         this.minRange = minRange;
