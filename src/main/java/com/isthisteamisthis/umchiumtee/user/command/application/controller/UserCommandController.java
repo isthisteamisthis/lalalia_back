@@ -6,10 +6,15 @@ import com.isthisteamisthis.umchiumtee.user.command.application.service.UserComm
 import com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.entity.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @Tag(name = "회원 Command API")
 @RestController
@@ -19,33 +24,11 @@ public class UserCommandController {
     private final UserCommandService userCommandService;
     private final KakaoAuthService kakaoAuthService;
 
+    // 카카오로 로그인
+    @PostMapping("/login-kakao")
+    public ResponseEntity<String> loginWithKakao(@RequestBody Map<String, String> requestBody) {
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizatinoHeader) {
-        try {
-            boolean tokenValidation = userCommandService.checkToken(authorizatinoHeader);
-
-            if (tokenValidation) {
-                // 로그인 로직
-                return ResponseEntity.ok("Login Success");
-
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .header("Location", "/oauth")
-                        .build();
-            }
-
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("INTERNAL_SERVER_ERROR");
-        }
-    }
-
-    //@RequestParam 은 파라미터의 타입이 기본 타입이거나 쿼리 스트링의 기본 타입인 String 인 경우 어노테이션 생략 가능하다.
-    @GetMapping("/oauth")
-    public ResponseEntity<Object> signInWithKakao(@RequestParam String code) {
-
-        // 카카오로부터 받은 인가 코드를 처리하여 액세스 토큰을 생성
-        String accessToken = kakaoAuthService.loginWithKakao(code);
+        String accessToken = requestBody.get("accessToken");
 
         if (accessToken != null) {
             // 액세스 토큰으로 카카오에서 해당 유저 정보 가져오기
@@ -65,10 +48,30 @@ public class UserCommandController {
                 jwtToken = userCommandService.signup(kakaoProfileResponse);
             }
 
-            return ResponseEntity.ok(jwtToken);
+            // Jwt Token 을 Header 에 담아서 반환
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer " + jwtToken);
+
+            return new ResponseEntity<>(headers, HttpStatus.OK);
 
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    // 앱 진입 시 jwt Token 유효성 검사
+    @PostMapping("/login")
+    public ResponseEntity<?> loginInApp(@RequestHeader Map<String, String> requestHeader) {
+
+        String jwtToken = requestHeader.get("authorization");
+
+        boolean isValidToken = userCommandService.checkToken(jwtToken);
+
+        if (isValidToken) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
