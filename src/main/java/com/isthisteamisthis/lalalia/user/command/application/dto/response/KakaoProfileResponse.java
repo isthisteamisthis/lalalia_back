@@ -1,4 +1,4 @@
-package com.isthisteamisthis.umchiumtee.user.command.application.dto.response;
+package com.isthisteamisthis.lalalia.user.command.application.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

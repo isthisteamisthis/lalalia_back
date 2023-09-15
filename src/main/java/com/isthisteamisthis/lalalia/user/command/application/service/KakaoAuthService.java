@@ -1,9 +1,9 @@
-package com.isthisteamisthis.umchiumtee.user.command.application.service;
+package com.isthisteamisthis.lalalia.user.command.application.service;
 
-import com.isthisteamisthis.umchiumtee.user.command.application.dto.response.KakaoProfileResponse;
-import com.isthisteamisthis.umchiumtee.user.command.application.dto.response.KakaoTokenResponse;
-import com.isthisteamisthis.umchiumtee.user.command.domain.aggregate.entity.User;
-import com.isthisteamisthis.umchiumtee.user.command.domain.repository.UserCommandRepository;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoProfileResponse;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoTokenResponse;
+import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import com.isthisteamisthis.lalalia.user.command.domain.repository.UserCommandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;

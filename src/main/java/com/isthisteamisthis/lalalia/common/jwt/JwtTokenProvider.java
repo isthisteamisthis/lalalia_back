@@ -1,4 +1,4 @@
-package com.isthisteamisthis.umchiumtee.common.jwt;
+package com.isthisteamisthis.lalalia.common.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

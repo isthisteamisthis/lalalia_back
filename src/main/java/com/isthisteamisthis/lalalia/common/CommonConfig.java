@@ -1,4 +1,4 @@
-package com.isthisteamisthis.umchiumtee.common;
+package com.isthisteamisthis.lalalia.common;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
