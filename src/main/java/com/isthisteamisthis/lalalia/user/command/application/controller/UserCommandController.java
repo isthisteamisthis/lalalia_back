@@ -2,19 +2,20 @@ package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
+import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
+import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRangeInfraService;
-import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +36,7 @@ public class UserCommandController {
 
     // 카카오로 로그인
     @PostMapping("/login-kakao")
-    public ResponseEntity<String> loginWithKakao(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<?> loginWithKakao(@RequestBody Map<String, String> requestBody) {
 
         String accessToken = requestBody.get("accessToken");
 
@@ -72,9 +73,9 @@ public class UserCommandController {
     @PostMapping("/login")
     public ResponseEntity<?> loginInApp(@RequestHeader Map<String, String> requestHeader) {
 
-        String jwtToken = requestHeader.get("authorization");
+        String authorizationHeader = requestHeader.get("authorization");
 
-        boolean isValidToken = userCommandService.checkToken(jwtToken);
+        boolean isValidToken = userCommandService.checkToken(authorizationHeader);
 
         if (isValidToken) {
             return new ResponseEntity<>(HttpStatus.OK);
@@ -82,6 +83,21 @@ public class UserCommandController {
         else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    // 작곡가, 가수 선택
+    @PostMapping("/category")
+    public ResponseEntity<ApiResponse> selectCategory(@RequestHeader Map<String, String> requestHeader, @RequestBody CategoryRequest categoryRequest) {
+        // 헤더에서 jwt 토큰 추출
+        String authorizationHeader = requestHeader.get("authorization");
+        // jwt 토큰을 이용해서 userID 추출
+        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
+        // user 에 category 추가
+        userCommandService.selectCategory(userId, categoryRequest.getCategory());
+
+        CategoryResponse categoryResponse = new CategoryResponse(categoryRequest.getCategory());
+
+        return ResponseEntity.ok(ApiResponse.success("category 등록 완료", categoryResponse));
     }
 
     @Operation(summary = "최고 음역대 생성")
@@ -111,6 +127,5 @@ public class UserCommandController {
         userCommandService.addMinVoiceRange(userNo, minResponse);
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
     }
-
 
 }

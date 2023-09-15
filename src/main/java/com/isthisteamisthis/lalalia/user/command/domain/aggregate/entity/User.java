@@ -60,5 +60,9 @@ public class User {
         this.minRange = minRange;
     }
 
+    public void addCategory(String category) {
+        this.category = category;
+    }
+
 
 }
