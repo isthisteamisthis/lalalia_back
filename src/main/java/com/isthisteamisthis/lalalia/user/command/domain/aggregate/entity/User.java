@@ -68,5 +68,9 @@ public class User {
         this.recommendSongList = recommendSongList;
     }
 
+    public void addCategory(String category) {
+        this.category = category;
+    }
+
 
 }
