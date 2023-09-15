@@ -1,9 +1,11 @@
 package com.isthisteamisthis.lalalia.user.command.application.dto.response;
 
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@NoArgsConstructor(force = true)
 public class UserCommandResponse {
     private final Long userNo;
     private final Long userId;
