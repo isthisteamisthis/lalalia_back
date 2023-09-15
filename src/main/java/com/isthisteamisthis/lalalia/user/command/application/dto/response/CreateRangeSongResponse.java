@@ -5,14 +5,15 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class CreateRangeSongResponse implements Serializable {
 
-    private final List<String> matchingfilenames;
+    private final Map<String, String> recommendSongs;
 
-    public List<String> getMatchingfilenames() {
-        return matchingfilenames;
+    public Map<String, String> getRecommendSongs() {
+        return recommendSongs;
     }
 }
