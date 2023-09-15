@@ -8,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserQueryService {
@@ -21,45 +19,28 @@ public class UserQueryService {
     @Transactional
     public MyPageResponse findUserByUserId(Long userId) {
 
-        Optional<User> optionalUser = userQueryRepository.findByUserId(userId);
+        User user = userQueryRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));
+        System.out.println("user = " + user.getEmail());
 
-        if (optionalUser.isPresent()) {
-           User user = optionalUser.get();
+        return MyPageResponse.from(user);
 
-           return new MyPageResponse(
-                   user.getUserNo(),
-                   user.getUserId(),
-                   user.getNickname(),
-                   user.getEmail(),
-                   user.getCategory(),
-                   user.getUserIntro(),
-                   user.getAvgScore(),
-                   user.getMaxRange().getMaxFrequency(),
-                   user.getMaxRange().getMaxNote(),
-                   user.getMaxRange().getMaxOctave(),
-                   user.getMinRange().getMinFrequency(),
-                   user.getMinRange().getMinNote(),
-                   user.getMinRange().getMinOctave()
-           );
-        }
-
-        throw new IllegalArgumentException("Inavlid UserId");
     }
 
     // 헤더의 토큰으로 userId 가져오기
     @Transactional
-    public Long getUserFromToken(String authoriztionHeader) {
+    public Long getUserFromToken(String authorizationHeader) {
 
-        String jwtToken = extractTokenFromHeader(authoriztionHeader);
+        String jwtToken = extractTokenFromHeader(authorizationHeader);
 
         return jwtTokenProvider.getUserIdFromToken(jwtToken);
 
     }
 
-    private String extractTokenFromHeader(String authoriztionHeader) {
+    private String extractTokenFromHeader(String authorizationHeader) {
 
-        if (authoriztionHeader != null && authoriztionHeader.startsWith("Bearer ")) {
-            return authoriztionHeader.substring(7);
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
         }
 
         throw new IllegalArgumentException("Invalid Authorization header");

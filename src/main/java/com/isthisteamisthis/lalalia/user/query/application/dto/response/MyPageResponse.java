@@ -28,16 +28,16 @@ public class MyPageResponse {
                 user.getUserNo(),
                 user.getUserId(),
                 user.getNickname(),
-                user.getEmail(),
-                user.getCategory(),
+                user.getEmail() != null ? user.getEmail() : null,
+                user.getCategory() != null ? user.getCategory() : null,
                 user.getUserIntro(),
                 user.getAvgScore(),
-                user.getMaxRange().getMaxFrequency(),
-                user.getMaxRange().getMaxNote(),
-                user.getMaxRange().getMaxOctave(),
-                user.getMinRange().getMinFrequency(),
-                user.getMinRange().getMinNote(),
-                user.getMinRange().getMinOctave()
+                user.getMaxRange() != null ? user.getMaxRange().getMaxFrequency() : null,
+                user.getMaxRange() != null ? user.getMaxRange().getMaxNote() : null,
+                user.getMaxRange() != null ? user.getMaxRange().getMaxOctave() : null,
+                user.getMinRange() != null ? user.getMinRange().getMinFrequency() : null,
+                user.getMinRange() != null ? user.getMinRange().getMinNote() : null,
+                user.getMinRange() != null ? user.getMinRange().getMinOctave() : null
         );
     }
 
