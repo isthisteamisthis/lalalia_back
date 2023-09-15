@@ -1,5 +1,6 @@
 package com.isthisteamisthis.lalalia.user.command.application.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MinRangeVO;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @RequiredArgsConstructor
-@ToString
+@NoArgsConstructor(force = true)
 public class MinVoiceRangeResponse implements Serializable {
 
     private final String lowestfrequency;
