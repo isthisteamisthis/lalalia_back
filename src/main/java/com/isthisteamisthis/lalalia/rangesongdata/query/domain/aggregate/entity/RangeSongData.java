@@ -14,7 +14,7 @@ public class RangeSongData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long songDataNo;
+    private Long dataSongNo;
 
     @Column
     private String songName;
