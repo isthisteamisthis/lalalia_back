@@ -58,6 +58,7 @@ public class KakaoAuthService {
 
     }
 
+    // 액세스 토큰으로 user profile 가져오기
     public KakaoProfileResponse getKakaoProfile(String kakaoAccessToken){
         // user 정보를 가져오는 kakao api url
         String url = "https://kapi.kakao.com/v2/user/me";
@@ -78,6 +79,7 @@ public class KakaoAuthService {
 
     }
 
+    // 특정 시용자 조회
     public User findByUserId(Long userId) {
 
         Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
@@ -86,12 +88,4 @@ public class KakaoAuthService {
 
     }
 
-    public String getKakaoAuthUrl() {
-
-        return "https://kauth.kakao.com/oauth/authrize?" +
-                "client_id=" + kakaoClientId +
-                "&redirect_uri=" + kakaoRedirectUri +
-                "&response_type=code";
-
-    }
 }

@@ -57,6 +57,7 @@ public class UserCommandService {
     @Transactional
     public boolean checkToken(String authorizationHeader) {
 
+        // 헤더로 넘어온 정보에서 jwt 토큰 부분 추출
         String jwtToken = extractTokenFromHeader(authorizationHeader);
 
         return !jwtTokenProvider.isTokenExpired(jwtToken) && jwtTokenProvider.validateToken(jwtToken);
