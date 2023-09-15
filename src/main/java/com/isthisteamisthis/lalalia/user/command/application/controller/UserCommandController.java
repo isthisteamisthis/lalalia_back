@@ -5,16 +5,15 @@ import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
+import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRangeInfraService;
-import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -72,9 +71,9 @@ public class UserCommandController {
     @PostMapping("/login")
     public ResponseEntity<?> loginInApp(@RequestHeader Map<String, String> requestHeader) {
 
-        String jwtToken = requestHeader.get("authorization");
+        String authorizationHeader = requestHeader.get("authorization");
 
-        boolean isValidToken = userCommandService.checkToken(jwtToken);
+        boolean isValidToken = userCommandService.checkToken(authorizationHeader);
 
         if (isValidToken) {
             return new ResponseEntity<>(HttpStatus.OK);

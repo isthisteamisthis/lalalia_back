@@ -60,7 +60,8 @@ public class UserCommandService {
     }
 
     // 헤더의 토큰으로 userId 가져오기
-    public long getUserFromToken(String authorizationHeader) {
+    @Transactional
+    public Long getUserFromToken(String authorizationHeader) {
 
         String jwtToken = extractTokenFromHeader(authorizationHeader);
 
