@@ -1,10 +1,8 @@
 package com.isthisteamisthis.lalalia.user.command.application.service;
 
 import com.isthisteamisthis.lalalia.common.jwt.JwtTokenProvider;
-import com.isthisteamisthis.lalalia.user.command.application.dto.request.CreateUserRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.UserCommandResponse;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MaxRangeVO;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MinRangeVO;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -31,6 +30,9 @@ public class UserCommandService {
                 .userId(kakaoProfileResponse.getUserId())
                 .nickname(kakaoProfileResponse.getNickname())
                 .email(kakaoProfileResponse.getEmail())
+                .category(null)
+                .userIntro("당신을 소개해주세요.")
+                .avgScore((float) 0)
                 .build();
 
         userCommandRepository.save(user);
@@ -61,11 +63,29 @@ public class UserCommandService {
 
     // 헤더의 토큰으로 userId 가져오기
     @Transactional
-    public Long getUserFromToken(String authorizationHeader) {
+    public Long getUserIdFromToken(String authorizationHeader) {
 
         String jwtToken = extractTokenFromHeader(authorizationHeader);
 
         return jwtTokenProvider.getUserIdFromToken(jwtToken);
+
+    }
+
+    // 헤더의 토큰으로 user 가져오기
+    @Transactional
+    public User getUserFromToken(String authorizationHeader) {
+
+        String jwtToken = extractTokenFromHeader(authorizationHeader);
+
+        Long userId = jwtTokenProvider.getUserIdFromToken(jwtToken);
+
+        Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
+
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+
+        throw new IllegalArgumentException("Invalid UserId");
 
     }
 
@@ -80,12 +100,15 @@ public class UserCommandService {
 
     }
 
+    // 작곡가, 가수 선택한 항목 저장
     @Transactional
-    public UserCommandResponse createNewUser(CreateUserRequest userDTO) {
+    public void selectCategory(Long userId, String category) {
+        // userId 로 user 가져오기
+        User user = userCommandRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));
+        // user 에 category 추가
+        user.addCategory(category);
 
-        User user = userCommandRepository.save(User.builder().build());
-
-        return UserCommandResponse.from(user);
     }
 
     @Transactional
@@ -105,6 +128,5 @@ public class UserCommandService {
 
         user.addMinVoiceRange(new MinRangeVO(Float.parseFloat(response.getLowestfrequency()), response.getNote(), response.getOctave()));
     }
-
 
 }

@@ -2,7 +2,9 @@ package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
+import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
@@ -34,7 +36,7 @@ public class UserCommandController {
 
     // 카카오로 로그인
     @PostMapping("/login-kakao")
-    public ResponseEntity<String> loginWithKakao(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<?> loginWithKakao(@RequestBody Map<String, String> requestBody) {
 
         String accessToken = requestBody.get("accessToken");
 
@@ -83,6 +85,21 @@ public class UserCommandController {
         }
     }
 
+    // 작곡가, 가수 선택
+    @PostMapping("/category")
+    public ResponseEntity<ApiResponse> selectCategory(@RequestHeader Map<String, String> requestHeader, @RequestBody CategoryRequest categoryRequest) {
+        // 헤더에서 jwt 토큰 추출
+        String authorizationHeader = requestHeader.get("authorization");
+        // jwt 토큰을 이용해서 userID 추출
+        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
+        // user 에 category 추가
+        userCommandService.selectCategory(userId, categoryRequest.getCategory());
+
+        CategoryResponse categoryResponse = new CategoryResponse(categoryRequest.getCategory());
+
+        return ResponseEntity.ok(ApiResponse.success("category 등록 완료", categoryResponse));
+    }
+
     @Operation(summary = "최고 음역대 생성")
     @PostMapping("/api/max-voice-range")
     public ResponseEntity<ApiResponse> createMaxVoiceRange(@RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
@@ -110,6 +127,5 @@ public class UserCommandController {
         userCommandService.addMinVoiceRange(userNo, minResponse);
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
     }
-
 
 }
