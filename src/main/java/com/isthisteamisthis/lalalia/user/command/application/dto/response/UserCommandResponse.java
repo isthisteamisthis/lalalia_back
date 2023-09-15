@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserCommandResponse {
     private final Long userNo;
-    private final String userId;
-    private final String password;
+    private final Long userId;
+    private final String nickname;
     private final String email;
     private final String userIntro;
     private final Float avgScore;
@@ -18,7 +18,7 @@ public class UserCommandResponse {
         return new UserCommandResponse(
                 user.getUserNo(),
                 user.getUserId(),
-                user.getPassword(),
+                user.getNickname(),
                 user.getEmail(),
                 user.getUserIntro(),
                 user.getAvgScore(),
@@ -30,12 +30,12 @@ public class UserCommandResponse {
         return userNo;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNickname() {
+        return nickname;
     }
 
     public String getEmail() {
