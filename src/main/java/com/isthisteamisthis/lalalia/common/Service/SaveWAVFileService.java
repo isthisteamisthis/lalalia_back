@@ -13,6 +13,7 @@ import java.util.UUID;
 public class SaveWAVFileService {
     private final String perfectScoreDirectory = "C:\\september-ai\\db\\perfect-score";
     private final String voiceRangeDirectory = "C:\\september-ai\\db\\voice-range";
+    private final String aiSongDirectory = "C:\\september-ai\\db\\ai-songs";
 
     public String savePerfectScoreFile(MultipartFile perfectScoreWav) throws IOException {
         File directory = new File(perfectScoreDirectory);
@@ -64,6 +65,32 @@ public class SaveWAVFileService {
         }
 
         return voiceRangeDirectory + "\\" + uniqueFileName;
+    }
+
+    public String saveAiSongFile(MultipartFile aiSongWav) throws IOException {  //test 용
+        File directory = new File(aiSongDirectory);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+
+        Path filePath = Paths.get(aiSongDirectory, uniqueFileName);
+
+        try (InputStream inputStream = aiSongWav.getInputStream();
+             OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return aiSongDirectory + "\\" + uniqueFileName;
     }
 
 }

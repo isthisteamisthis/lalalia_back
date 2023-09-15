@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,7 +90,7 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveVoiceRangeFile(rangeWav);
+        saveWAVFileService.saveAiSongFile(rangeWav);
 
         MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(userNo, rangeWav.getResource());
 
@@ -103,7 +104,7 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveVoiceRangeFile(rangeWav);
+        saveWAVFileService.saveAiSongFile(rangeWav);
 
         MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(userNo, rangeWav.getResource());
 
