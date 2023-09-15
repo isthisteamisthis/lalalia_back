@@ -11,8 +11,8 @@ import lombok.ToString;
 import java.io.Serializable;
 
 @RequiredArgsConstructor
-//@NoArgsConstructor(force = true)
-@ToString
+@NoArgsConstructor(force = true)
+//@ToString
 public class MaxVoiceRangeResponse implements Serializable {
 
     private final String highestfrequency;

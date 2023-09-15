@@ -6,6 +6,7 @@ import com.isthisteamisthis.lalalia.perfectscore.command.application.dto.respons
 import com.isthisteamisthis.lalalia.perfectscore.command.application.service.PerfectScoreCommandService;
 import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
 import com.isthisteamisthis.lalalia.perfectscore.command.infrastructure.service.PerfectScoreInfraService;
+import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRangeInfraService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +26,23 @@ public class PerfectScoreCommandController {
     private final PerfectScoreCommandService perfectScoreCommandService;
     private final PerfectScoreInfraService perfectScoreInfraService;
     private final SaveWAVFileService saveWAVFileService;
+    private final VoiceRangeInfraService voiceRangeInfraService;
 
     @Operation(summary = "퍼펙트 스코어 생성")
     @PostMapping("/api/perfect-scores")
     public ResponseEntity<ApiResponse> createPerfectScore(CreatePerfectScoreRequest request, @RequestPart("perfect-score") MultipartFile perfectScoreWav) throws IOException {
 
-        //음성 파일 저장
-        String fileDirectory = saveWAVFileService.savePerfectScoreFile(perfectScoreWav);   //파일 위치 리턴받기
-        Float result = perfectScoreInfraService.getScoreResult(perfectScoreWav);
-//        Float result = 100F;
+//        System.out.println("rangeWav = " + perfectScoreWav.getSize());
 
-        PerfectScoreCommandResponse response = perfectScoreCommandService.createPerfectScore(request, result, fileDirectory);
+//        long minUploadSize = 1024 * 1024;
+//        if(perfectScoreWav.getSize() < minUploadSize) {
+//            System.out.println(" 작다!! ");
+//            perfectScoreWav = voiceRangeInfraService.increaseFileSize(perfectScoreWav);
+//        }
+
+ //        Float result = perfectScoreInfraService.getScoreResult(perfectScoreWav.getResource());
+        String fileDirectory = saveWAVFileService.savePerfectScoreFile(perfectScoreWav);
+        PerfectScoreCommandResponse response = perfectScoreCommandService.createPerfectScore(request, 100F, fileDirectory);
 
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", response));
     }

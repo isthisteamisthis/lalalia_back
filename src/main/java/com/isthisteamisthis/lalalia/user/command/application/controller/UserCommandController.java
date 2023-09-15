@@ -10,10 +10,12 @@ import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRan
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 @Tag(name = "회원 Command API")
@@ -25,13 +27,15 @@ public class UserCommandController {
     private final VoiceRangeInfraService voiceRangeInfraService;
     private final SaveWAVFileService saveWAVFileService;
 
+    private long minUploadSize = 1024 * 1024;  //1MB
+
     @Operation(summary = "최고 음역대 생성")
     @PostMapping("/api/max-voice-range")
-    public ResponseEntity<ApiResponse> createMaxVoiceRange(@RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
+    public ResponseEntity<ApiResponse> createMaxVoiceRange(@RequestPart("voice-range") MultipartFile rangeWav) throws IOException, UnsupportedAudioFileException {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveVoiceRangeFile(rangeWav);
+        saveWAVFileService.saveAiSongFile(rangeWav);
 
         MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(userNo, rangeWav.getResource());
 
@@ -41,11 +45,11 @@ public class UserCommandController {
 
     @Operation(summary = "최저 음역대 생성")
     @PostMapping("/api/min-voice-range")
-    public ResponseEntity<ApiResponse> createMinVoiceRange(VoiceRangeRequest request, @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
+    public ResponseEntity<ApiResponse> createMinVoiceRange(VoiceRangeRequest request, @RequestPart("voice-range") MultipartFile rangeWav) throws IOException, UnsupportedAudioFileException {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveVoiceRangeFile(rangeWav);
+        saveWAVFileService.saveAiSongFile(rangeWav);
 
         MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(userNo, rangeWav.getResource());
 
