@@ -2,11 +2,14 @@ package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
+import com.isthisteamisthis.lalalia.user.command.application.dto.request.CreateRangeSongRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import com.isthisteamisthis.lalalia.user.command.domain.repository.UserCommandRepository;
 import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRangeInfraService;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,13 +17,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @Tag(name = "회원 Command API")
 @RestController
@@ -32,6 +35,8 @@ public class UserCommandController {
     private final SaveWAVFileService saveWAVFileService;
 
     private final KakaoAuthService kakaoAuthService;
+
+    private final UserCommandRepository userCommandRepository;
 
     // 카카오로 로그인
     @PostMapping("/login-kakao")
@@ -90,7 +95,7 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveAiSongFile(rangeWav);
+        saveWAVFileService.saveVoiceRangeFile(rangeWav);
 
         MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(userNo, rangeWav.getResource());
 
@@ -104,12 +109,30 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveAiSongFile(rangeWav);
+        saveWAVFileService.saveVoiceRangeFile(rangeWav);
 
         MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(userNo, rangeWav.getResource());
 
         userCommandService.addMinVoiceRange(userNo, minResponse);
         return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
+    }
+
+    @Operation(summary = "추천 곡 리스트 생성")
+    @PostMapping("/api/song-recommend")
+    public ResponseEntity<ApiResponse> createRecommendSongData(@RequestBody CreateRangeSongRequest request) {
+
+
+        Optional<User> optionalUser = userCommandRepository.findByUserId(request.getUserId());
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            CreateRangeSongResponse response = voiceRangeInfraService.getRecommendSong(user.getMaxRange().getMaxFrequency(), user.getMinRange().getMinFrequency());
+
+            
+            return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", response));
+        }
+
+        else return ResponseEntity.ok(ApiResponse.error("등록에 실패했습니다."));
     }
 
 
