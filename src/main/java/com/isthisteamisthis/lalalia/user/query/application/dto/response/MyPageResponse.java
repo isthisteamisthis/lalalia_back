@@ -1,8 +1,13 @@
 package com.isthisteamisthis.lalalia.user.query.application.dto.response;
 
+import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.ComposeSong;
+import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
+import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -22,8 +27,12 @@ public class MyPageResponse {
     private final String manNote;
     private final String minOctave;
 
+    private final List<Post> postList;
+    private final List<PerfectScore> perfectScoreList;
+    private final List<ComposeSong> composeSongList;
 
-    public static MyPageResponse from(User user) {
+
+    public static MyPageResponse from(User user, List<Post> postList, List<PerfectScore> perfectScoreList, List<ComposeSong> composeSongList) {
         return new MyPageResponse(
                 user.getUserNo(),
                 user.getUserId(),
@@ -37,7 +46,10 @@ public class MyPageResponse {
                 user.getMaxRange() != null ? user.getMaxRange().getMaxOctave() : null,
                 user.getMinRange() != null ? user.getMinRange().getMinFrequency() : null,
                 user.getMinRange() != null ? user.getMinRange().getMinNote() : null,
-                user.getMinRange() != null ? user.getMinRange().getMinOctave() : null
+                user.getMinRange() != null ? user.getMinRange().getMinOctave() : null,
+                postList,
+                perfectScoreList,
+                composeSongList
         );
     }
 
