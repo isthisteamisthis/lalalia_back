@@ -64,5 +64,19 @@ public class User {
         this.category = category;
     }
 
+    // 자기소개 수정
+    public void updateUserIntro(String userIntro) {
+        this.userIntro = userIntro;
+    }
+
+    // 닉네임 수정
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+
 
 }
