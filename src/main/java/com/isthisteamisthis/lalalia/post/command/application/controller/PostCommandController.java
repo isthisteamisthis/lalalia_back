@@ -40,9 +40,9 @@ public class PostCommandController {
     @DeleteMapping("/posts/{post-id}")
     public ResponseEntity<ApiResponse> deleteMyPost(@RequestHeader Map<String, String> requestHeader,
                                                     @PathVariable("post-id") Long postId ) {
-
+        // user 정보 조회
         UserResponse user = apiUserPostCommandService.getUser(requestHeader.get("authorization"));
-
+        // 게시물 삭제
         DeletePostResponse deletePostResponse = postCommandService.deletePost(user, postId);
 
         return ResponseEntity.ok(ApiResponse.success("게시물 삭제 성공", deletePostResponse));

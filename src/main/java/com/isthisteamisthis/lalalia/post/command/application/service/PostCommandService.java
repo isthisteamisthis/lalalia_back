@@ -43,15 +43,17 @@ public class PostCommandService {
     // 게시물 삭제
     @Transactional
     public DeletePostResponse deletePost(UserResponse user, Long postId) {
-
+        // post Id로 게시물 조회
         Post findPost = postCommandRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid PostId"));
-
+        // 게시물의 작성자오 요청하는 사용자가 같은지 확인 -> 다르면 삭제 불가능
         if (findPost.getUserNoVO().getUserNo().equals(user.getUserNo())) {
             postCommandRepository.delete(findPost);
-
+            // 삭제한 게시물의 postId 반환
             return DeletePostResponse.from(postId);
         }
+
+        // TODO : 연관되는 좋아요 삭제하는 로직 필요
 
         throw new IllegalArgumentException("Not Matched Writer!!");
     }
