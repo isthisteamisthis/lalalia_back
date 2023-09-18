@@ -19,13 +19,14 @@ public class UserQueryController {
 
     private final UserQueryService userQueryService;
 
+    // My Page 조회
     @GetMapping("/my-page")
     public ResponseEntity<ApiResponse> getMyPage(@RequestHeader Map<String, String> requestHeader) {
         // 헤더에 있는 jwtToken 추출
         String authorizationHeader = requestHeader.get("authorization");
         // jwtToken 에서 userId 추출
         Long userId = userQueryService.getUserFromToken(authorizationHeader);
-        // userId 로 user 정보 찾기
+        // userId 로 사용자 정보와 곡 리스트들 조회
         MyPageResponse myPageResponse = userQueryService.findUserByUserId(userId);
 
         return ResponseEntity.ok(ApiResponse.success("My Page 조회 성공", myPageResponse));

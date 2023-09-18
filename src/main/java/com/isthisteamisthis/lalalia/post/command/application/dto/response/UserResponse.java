@@ -1,17 +1,14 @@
-package com.isthisteamisthis.lalalia.user.query.application.dto.response;
+package com.isthisteamisthis.lalalia.post.command.application.dto.response;
 
-import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.ComposeSong;
-import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
-import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class MyPageResponse {
+@NoArgsConstructor(force = true)
+public class UserResponse {
 
     private final Long userNo;
     private final Long userId;
@@ -27,13 +24,8 @@ public class MyPageResponse {
     private final String manNote;
     private final String minOctave;
 
-    private final List<Post> postList;
-    private final List<PerfectScore> perfectScoreList;
-    private final List<ComposeSong> composeSongList;
-
-
-    public static MyPageResponse from(User user, List<Post> postList, List<PerfectScore> perfectScoreList, List<ComposeSong> composeSongList) {
-        return new MyPageResponse(
+    public static UserResponse from(User user) {
+        return new UserResponse(
                 user.getUserNo(),
                 user.getUserId(),
                 user.getNickname(),
@@ -46,10 +38,7 @@ public class MyPageResponse {
                 user.getMaxRange() != null ? user.getMaxRange().getMaxOctave() : null,
                 user.getMinRange() != null ? user.getMinRange().getMinFrequency() : null,
                 user.getMinRange() != null ? user.getMinRange().getMinNote() : null,
-                user.getMinRange() != null ? user.getMinRange().getMinOctave() : null,
-                postList,
-                perfectScoreList,
-                composeSongList
+                user.getMinRange() != null ? user.getMinRange().getMinOctave() : null
         );
     }
 

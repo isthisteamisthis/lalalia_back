@@ -21,7 +21,6 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postNo;
 
-
     @Column
     private Date date;
 
