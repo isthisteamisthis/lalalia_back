@@ -14,5 +14,5 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class ComposeSongVO {
     @Column
-    private Long composeSongVO;
+    private Long composeSongNo;
 }
