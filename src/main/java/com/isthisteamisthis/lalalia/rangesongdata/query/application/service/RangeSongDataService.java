@@ -15,19 +15,19 @@ public class RangeSongDataService {
 
     private final RangeSongDataRepository rangeSongDataRepository;
 
-    public Map<String, String> findArtistNamesByFilename(List<String> filenames) {
-        Map<String, String> filenameToArtistMap = new HashMap<>();
+    public Map<String, String> addArtistMap(List<String> filenames) {
+        Map<String, String> fileMap = new HashMap<>();
 
         for (String filename : filenames) {
             RangeSongData songData = rangeSongDataRepository.findBySongName(filename);
 
             if (songData != null) {
-                filenameToArtistMap.put(filename, songData.getArtistName());
+                fileMap.put(filename, songData.getArtistName());
             } else {
-                filenameToArtistMap.put(filename, "NULL"); // Handle case when no matching songName is found.
+                fileMap.put(filename, "NULL"); // Handle case when no matching songName is found.
             }
         }
 
-        return filenameToArtistMap;
+        return fileMap;
     }
 }

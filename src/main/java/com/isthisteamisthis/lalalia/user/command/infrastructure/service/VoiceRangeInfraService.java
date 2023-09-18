@@ -3,6 +3,7 @@ package com.isthisteamisthis.lalalia.user.command.infrastructure.service;
 import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
 import com.isthisteamisthis.lalalia.rangesongdata.query.domain.aggregate.entity.RangeSongData;
 import com.isthisteamisthis.lalalia.rangesongdata.query.domain.repository.RangeSongDataRepository;
+import com.isthisteamisthis.lalalia.user.command.application.dto.request.RecommendationRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
@@ -27,7 +28,7 @@ public class VoiceRangeInfraService {
 
     private final RangeSongDataService rangeSongDataService;
 
-    private WebClient webClient = WebClient.builder().baseUrl("http://192.168.0.152:8888").build();
+    private WebClient webClient = WebClient.builder().baseUrl("http://192.168.0.165:8888").build();
 
     public MaxVoiceRangeResponse getMaxRange(Long userNo, Resource maxRangeWav) {
 
@@ -57,21 +58,19 @@ public class VoiceRangeInfraService {
 
     public CreateRangeSongResponse getRecommendSong(Float high, Float low) {
 
-        String request = "{\"high\":" + high + ",\"low\":" + low + "}";
+        RecommendationRequest requestObject = new RecommendationRequest(high, low);
 
-        System.out.println("request = " + request);
+        List<String> response = webClient.post()
+                .uri("/get-recommendations")
+                .bodyValue(requestObject)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(List.class)
+                .block();
 
-//        List<String> response = webClient.post()
-//                .uri("/get-recommendations")
-//                .bodyValue(request)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(List.class)
-//                .block();
-
-        List<String> response = new ArrayList<>();
-        response.add("모든날모든순간.wav");
-        response.add("나에게그대만이.wav");
+//        List<String> response = new ArrayList<>();
+//        response.add("모든날모든순간.wav");
+//        response.add("나에게그대만이.wav");
 
         List<String> filename = new ArrayList<>();
 
@@ -80,7 +79,7 @@ public class VoiceRangeInfraService {
             filename.add(newName);
         }
 
-        Map<String, String> map = rangeSongDataService.findArtistNamesByFilename(filename);
+        Map<String, String> map = rangeSongDataService.addArtistMap(filename);
 
         return new CreateRangeSongResponse(map);
     }

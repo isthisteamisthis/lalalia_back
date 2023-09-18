@@ -112,8 +112,6 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveAiSongFile(rangeWav);
-
         MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(userNo, rangeWav.getResource());
 
         userCommandService.addMaxVoiceRange(userNo, maxResponse);
@@ -126,8 +124,6 @@ public class UserCommandController {
 
         Long userNo = 1L;
 
-        saveWAVFileService.saveAiSongFile(rangeWav);
-
         MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(userNo, rangeWav.getResource());
 
         userCommandService.addMinVoiceRange(userNo, minResponse);
@@ -138,7 +134,9 @@ public class UserCommandController {
     @PostMapping("/api/song-recommend")
     public ResponseEntity<ApiResponse> createRecommendSongs(CreateRangeSongRequest request) {
 
-        Optional<User> optionalUser = userCommandRepository.findByUserId(request.getUserId());
+        Long userId = 1234123530L;
+
+        Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
 
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
