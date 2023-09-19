@@ -14,6 +14,9 @@ public class SaveWAVFileService {
     private final String perfectScoreDirectory = "C:\\september-ai\\db\\perfect-score";
     private final String voiceRangeDirectory = "C:\\september-ai\\db\\voice-range";
     private final String aiSongDirectory = "C:\\september-ai\\db\\ai-songs";
+    private final String originalSongDirectory = "C:\\september-ai\\db\\original-songs";
+
+    private final String coverImgDirectory = "C:\\september-ai\\db\\cover-img";
 
     public String savePerfectScoreFile(MultipartFile perfectScoreWav) throws IOException {
         File directory = new File(perfectScoreDirectory);
@@ -67,14 +70,41 @@ public class SaveWAVFileService {
         return voiceRangeDirectory + "\\" + uniqueFileName;
     }
 
+    public String saveAiOriginalFile(MultipartFile file) throws IOException {  //test 용
+        File directory = new File(originalSongDirectory);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+//        String uniqueFileName = aiSongWav.getOriginalFilename() + ".wav";
+
+        Path filePath = Paths.get(originalSongDirectory, uniqueFileName);
+
+        try (InputStream inputStream = file.getInputStream();
+             OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
+
+        return originalSongDirectory + "\\" + uniqueFileName;
+    }
+
     public String saveAiSongFile(MultipartFile aiSongWav) throws IOException {  //test 용
         File directory = new File(aiSongDirectory);
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-//        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
-        String uniqueFileName = "여형구 사랑했나봐" + ".wav";
+        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+//        String uniqueFileName = aiSongWav.getOriginalFilename() + ".wav";
 
         Path filePath = Paths.get(aiSongDirectory, uniqueFileName);
 
@@ -94,4 +124,18 @@ public class SaveWAVFileService {
         return aiSongDirectory + "\\" + uniqueFileName;
     }
 
+    public String saveCoverImg(MultipartFile img) throws IOException {
+
+        File directory = new File(coverImgDirectory);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        String uniqueFileName = UUID.randomUUID().toString() + ".png";
+
+        Path filePath = Paths.get(coverImgDirectory, uniqueFileName);
+
+
+        return coverImgDirectory + "\\" + uniqueFileName;
+    }
 }

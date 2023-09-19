@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,14 +16,13 @@ import javax.persistence.*;
 public class ComposeSong {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long composeSongNo;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID composeSongNo;
 
     @Column
     private String title;
 
-//    @Column
-//    private Float songLength;
+    @Column String imgFile;
 
     @Column
     private String originalFile;
@@ -33,12 +33,13 @@ public class ComposeSong {
     @Embedded
     private UserNoVO userNoVO;
     @Builder
-    public ComposeSong(Long composeSongNo, String title, String aiSongFile, String originalFile, UserNoVO userNoVO) {
+    public ComposeSong(UUID composeSongNo, String title, String imgFile, String originalFile, UserNoVO userNoVO) {
         this. composeSongNo = composeSongNo;
         this.title = title;
+        this.imgFile = imgFile;
         this.originalFile = originalFile;
-        this.aiSongFile = aiSongFile;
         this.userNoVO = userNoVO;
     }
+    public void addAiSongFile(String aiSongFile) { this.aiSongFile = aiSongFile; }
 
 }
