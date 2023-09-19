@@ -2,6 +2,7 @@ package com.isthisteamisthis.lalalia.rangesongdata.query.application.service;
 
 import com.isthisteamisthis.lalalia.rangesongdata.query.domain.aggregate.entity.RangeSongData;
 import com.isthisteamisthis.lalalia.rangesongdata.query.domain.repository.RangeSongDataRepository;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class RangeSongDataService {
 
     private final RangeSongDataRepository rangeSongDataRepository;
 
-    public Map<String, String> addArtistMap(List<String> filenames) {
+    public Map<String, String> addImageUrl(List<String> filenames) {
         Map<String, String> fileMap = new HashMap<>();
 
         for (String filename : filenames) {
@@ -29,5 +30,15 @@ public class RangeSongDataService {
         }
 
         return fileMap;
+    }
+
+
+    public CreateRangeSongResponse getMapFromString(String songLists) {
+
+        List<String> filenames = List.of(songLists.split(","));
+
+        Map<String, String> map = addImageUrl(filenames);
+
+        return new CreateRangeSongResponse(map);
     }
 }

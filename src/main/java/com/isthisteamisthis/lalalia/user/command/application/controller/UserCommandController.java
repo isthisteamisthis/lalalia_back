@@ -1,6 +1,7 @@
 package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
+import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
@@ -35,6 +36,7 @@ public class UserCommandController {
     private final VoiceRangeInfraService voiceRangeInfraService;
     private final KakaoAuthService kakaoAuthService;
     private final UserCommandRepository userCommandRepository;
+    private final RangeSongDataService rangeSongDataService;
 
     // 카카오로 로그인
     @PostMapping("/login-kakao")
@@ -158,11 +160,16 @@ public class UserCommandController {
 
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
-            CreateRangeSongResponse response = voiceRangeInfraService.getRecommendSong(user.getMaxRange().getMaxFrequency(), user.getMinRange().getMinFrequency());
 
-            userCommandService.addRecommendSongList(user, response.getRecommendSongs());
-
-            return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", response));
+            if(user.getRecommendSongList() == null) {
+                CreateRangeSongResponse response = voiceRangeInfraService.getRecommendSong(user.getMaxRange().getMaxFrequency(), user.getMinRange().getMinFrequency());
+                userCommandService.addRecommendSongList(user, response.getRecommendSongs());
+                return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", response));
+            } else {
+                CreateRangeSongResponse response = rangeSongDataService.getMapFromString(user.getRecommendSongList());
+                userCommandService.addRecommendSongList(user, response.getRecommendSongs());
+                return ResponseEntity.ok(ApiResponse.success("성공적으로 조회되었습니다.", response));
+            }
         }
         else return ResponseEntity.ok(ApiResponse.error("등록에 실패하였습니다."));
     }

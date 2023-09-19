@@ -1,14 +1,11 @@
 package com.isthisteamisthis.lalalia.user.command.infrastructure.service;
 
 import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
-import com.isthisteamisthis.lalalia.rangesongdata.query.domain.aggregate.entity.RangeSongData;
-import com.isthisteamisthis.lalalia.rangesongdata.query.domain.repository.RangeSongDataRepository;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.RecommendationRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -77,9 +74,7 @@ public class VoiceRangeInfraService {
             filename.add(newName);
         }
 
-        Map<String, String> map = rangeSongDataService.addArtistMap(filename);
-
-        System.out.println("map = " + map);
+        Map<String, String> map = rangeSongDataService.addImageUrl(filename);
 
         return new CreateRangeSongResponse(map);
     }
