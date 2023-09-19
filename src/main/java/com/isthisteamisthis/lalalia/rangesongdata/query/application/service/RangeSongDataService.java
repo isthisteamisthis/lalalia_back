@@ -22,9 +22,9 @@ public class RangeSongDataService {
             RangeSongData songData = rangeSongDataRepository.findBySongName(filename);
 
             if (songData != null) {
-                fileMap.put(filename, songData.getArtistName());
+                fileMap.put(filename, songData.getImageUrl());
             } else {
-                fileMap.put(filename, "NULL"); // Handle case when no matching songName is found.
+                fileMap.put(filename, "찾을 수 없음");
             }
         }
 

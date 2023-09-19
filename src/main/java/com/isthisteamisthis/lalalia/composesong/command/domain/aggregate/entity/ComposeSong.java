@@ -21,8 +21,8 @@ public class ComposeSong {
     @Column
     private String title;
 
-    @Column
-    private Float songLength;
+//    @Column
+//    private Float songLength;
 
     @Column
     private String originalFile;
@@ -33,10 +33,9 @@ public class ComposeSong {
     @Embedded
     private UserNoVO userNoVO;
     @Builder
-    public ComposeSong(Long composeSongNo, String title, Float songLength, String aiSongFile, String originalFile, UserNoVO userNoVO) {
+    public ComposeSong(Long composeSongNo, String title, String aiSongFile, String originalFile, UserNoVO userNoVO) {
         this. composeSongNo = composeSongNo;
         this.title = title;
-        this.songLength = songLength;
         this.originalFile = originalFile;
         this.aiSongFile = aiSongFile;
         this.userNoVO = userNoVO;

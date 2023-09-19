@@ -21,4 +21,7 @@ public class RangeSongData {
 
     @Column
     private String artistName;
+
+    @Column
+    private String imageUrl;
 }

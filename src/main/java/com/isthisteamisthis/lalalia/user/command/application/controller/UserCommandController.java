@@ -1,10 +1,7 @@
 package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
-import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
-import com.isthisteamisthis.lalalia.user.command.application.dto.request.CreateRangeSongRequest;
-import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
@@ -23,9 +20,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Spliterator;
 
 @Tag(name = "회원 Command API")
 @RestController
@@ -34,10 +33,7 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final SaveWAVFileService saveWAVFileService;
-
     private final KakaoAuthService kakaoAuthService;
-
     private final UserCommandRepository userCommandRepository;
 
     // 카카오로 로그인
@@ -107,40 +103,65 @@ public class UserCommandController {
     }
 
     @Operation(summary = "최고 음역대 생성")
-    @PostMapping("/api/max-voice-range")
-    public ResponseEntity<ApiResponse> createMaxVoiceRange(@RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
+    @PostMapping("/max-voice-range")
+    public ResponseEntity<ApiResponse> createMaxVoiceRange(@RequestHeader Map<String, String> requestHeader , @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
 
-        Long userNo = 1L;
+        String authorizationHeader = requestHeader.get("authorization");
 
-        MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(userNo, rangeWav.getResource());
+        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
 
-        userCommandService.addMaxVoiceRange(userNo, maxResponse);
-        return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", maxResponse));
+        MaxVoiceRangeResponse maxResponse = voiceRangeInfraService.getMaxRange(rangeWav.getResource());
+
+        Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            userCommandService.addMaxVoiceRange(user, maxResponse);
+            return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", maxResponse));
+        }
+        else return ResponseEntity.ok(ApiResponse.error("등록에 실패하였습니다."));
+
     }
 
     @Operation(summary = "최저 음역대 생성")
-    @PostMapping("/api/min-voice-range")
-    public ResponseEntity<ApiResponse> createMinVoiceRange(VoiceRangeRequest request, @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
+    @PostMapping("/min-voice-range")
+    public ResponseEntity<ApiResponse> createMinVoiceRange(@RequestHeader Map<String, String> requestHeader , @RequestPart("voice-range") MultipartFile rangeWav) throws IOException {
 
-        Long userNo = 1L;
+        String authorizationHeader = requestHeader.get("authorization");
 
-        MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(userNo, rangeWav.getResource());
+        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
 
-        userCommandService.addMinVoiceRange(userNo, minResponse);
-        return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
+        MinVoiceRangeResponse minResponse = voiceRangeInfraService.getMinRange(rangeWav.getResource());
+
+        Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            userCommandService.addMinVoiceRange(user, minResponse);
+            return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", minResponse));
+        }
+        else return ResponseEntity.ok(ApiResponse.error("등록에 실패하였습니다."));
     }
 
     @Operation(summary = "추천곡 생성")
-    @PostMapping("/api/song-recommend")
-    public ResponseEntity<ApiResponse> createRecommendSongs(CreateRangeSongRequest request) {
+    @PostMapping("/song-recommend")
+    public ResponseEntity<ApiResponse> createRecommendSongs(@RequestHeader Map<String, String> requestHeader) {
 
-        Long userId = 1234123530L;
+        String authorizationHeader = requestHeader.get("authorization");
+        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
+
+        System.out.println("userId = " + userId);
 
         Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
 
         if(optionalUser.isPresent()) {
             User user = optionalUser.get();
             CreateRangeSongResponse response = voiceRangeInfraService.getRecommendSong(user.getMaxRange().getMaxFrequency(), user.getMinRange().getMinFrequency());
+
+            userCommandService.addRecommendSongList(user, response.getRecommendSongs());
+
             return ResponseEntity.ok(ApiResponse.success("성공적으로 등록되었습니다.", response));
         }
         else return ResponseEntity.ok(ApiResponse.error("등록에 실패하였습니다."));

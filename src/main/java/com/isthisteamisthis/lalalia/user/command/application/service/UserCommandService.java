@@ -11,8 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -21,6 +24,8 @@ public class UserCommandService {
     private final UserCommandRepository userCommandRepository;
 
     private final JwtTokenProvider jwtTokenProvider;
+    private static final String SPLIT_CHAR = ",";
+
 
     // 회원 가입
     @Transactional
@@ -112,21 +117,30 @@ public class UserCommandService {
     }
 
     @Transactional
-    public void addMaxVoiceRange(Long id, MaxVoiceRangeResponse response) {
-
-        User user = userCommandRepository.findById(1L).orElseThrow(
-                NoSuchElementException::new);
-
+    public void addMaxVoiceRange(User user, MaxVoiceRangeResponse response) {
         user.addMaxVoiceRange(new MaxRangeVO(Float.parseFloat(response.getHighestfrequency()), response.getNote(), response.getOctave()));
     }
 
     @Transactional
-    public void addMinVoiceRange(Long id, MinVoiceRangeResponse response) {
-
-        User user = userCommandRepository.findById(1L).orElseThrow(
-                NoSuchElementException::new);
-
+    public void addMinVoiceRange(User user, MinVoiceRangeResponse response) {
         user.addMinVoiceRange(new MinRangeVO(Float.parseFloat(response.getLowestfrequency()), response.getNote(), response.getOctave()));
     }
 
+
+    @Transactional
+    public void addRecommendSongList(User user, Map<String, String> songMap) {
+
+        StringBuilder resultBuilder = new StringBuilder();
+
+        songMap.keySet().forEach(value -> {
+            if (resultBuilder.length() > 0) {
+                resultBuilder.append(",");
+            }
+            resultBuilder.append(value);
+        });
+
+        String result = resultBuilder.toString();
+
+        user.addRecommendSongList(result);
+    }
 }

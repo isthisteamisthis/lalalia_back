@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class VoiceRangeInfraService {
 
     private WebClient webClient = WebClient.builder().baseUrl("http://192.168.0.165:8888").build();
 
-    public MaxVoiceRangeResponse getMaxRange(Long userNo, Resource maxRangeWav) {
+    public MaxVoiceRangeResponse getMaxRange(Resource maxRangeWav) {
 
          MaxVoiceRangeResponse result = webClient.post()
                 .uri("/upload-high")
@@ -43,7 +41,7 @@ public class VoiceRangeInfraService {
         return new MaxVoiceRangeResponse(result.getHighestfrequency(), result.getNote(), result.getOctave());
     }
 
-    public MinVoiceRangeResponse getMinRange(Long userNo, Resource minRangeWav) throws IOException {
+    public MinVoiceRangeResponse getMinRange(Resource minRangeWav) throws IOException {
 
         MinVoiceRangeResponse result = webClient.post()
                 .uri("/upload-low")
@@ -60,17 +58,17 @@ public class VoiceRangeInfraService {
 
         RecommendationRequest requestObject = new RecommendationRequest(high, low);
 
-        List<String> response = webClient.post()
-                .uri("/get-recommendations")
-                .bodyValue(requestObject)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(List.class)
-                .block();
+//        List<String> response = webClient.post()
+//                .uri("/get-recommendations")
+//                .bodyValue(requestObject)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .retrieve()
+//                .bodyToMono(List.class)
+//                .block();
 
-//        List<String> response = new ArrayList<>();
-//        response.add("모든날모든순간.wav");
-//        response.add("나에게그대만이.wav");
+        List<String> response = new ArrayList<>();
+        response.add("모든날모든순간.wav");
+        response.add("나에게그대만이.wav");
 
         List<String> filename = new ArrayList<>();
 
@@ -80,6 +78,8 @@ public class VoiceRangeInfraService {
         }
 
         Map<String, String> map = rangeSongDataService.addArtistMap(filename);
+
+        System.out.println("map = " + map);
 
         return new CreateRangeSongResponse(map);
     }
