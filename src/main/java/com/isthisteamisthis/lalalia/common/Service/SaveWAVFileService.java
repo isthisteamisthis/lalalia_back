@@ -73,7 +73,8 @@ public class SaveWAVFileService {
             directory.mkdirs();
         }
 
-        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+//        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+        String uniqueFileName = "여형구 사랑했나봐" + ".wav";
 
         Path filePath = Paths.get(aiSongDirectory, uniqueFileName);
 
