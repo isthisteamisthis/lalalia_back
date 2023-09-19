@@ -5,6 +5,7 @@ import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoProfileResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
@@ -42,7 +43,7 @@ public class UserCommandController {
 
         if (accessToken != null) {
             // 액세스 토큰으로 카카오에서 해당 유저 정보 가져오기
-            com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoProfileResponse kakaoProfileResponse = kakaoAuthService.getKakaoProfile(accessToken);
+            KakaoProfileResponse kakaoProfileResponse = kakaoAuthService.getKakaoProfile(accessToken);
 
             // 유저의 Id로 회원으로 등록이 되어있는지 확인
             User findUser = kakaoAuthService.findByUserId(kakaoProfileResponse.getUserId());
