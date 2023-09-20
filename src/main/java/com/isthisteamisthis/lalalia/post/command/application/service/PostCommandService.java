@@ -9,6 +9,7 @@ import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.ComposeSong
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.PerfectScoreVO;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.UserNoVO;
 import com.isthisteamisthis.lalalia.post.command.domain.repository.PostCommandRepository;
+import com.isthisteamisthis.lalalia.post.command.infrastructure.service.ApiLikePostCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.Date;
 public class PostCommandService {
 
     private final PostCommandRepository postCommandRepository;
+    private final ApiLikePostCommandService apiLikePostCommandService;
 
     // 게시물 생성
     @Transactional
@@ -42,18 +44,18 @@ public class PostCommandService {
 
     // 게시물 삭제
     @Transactional
-    public DeletePostResponse deletePost(UserResponse user, Long postId) {
+    public DeletePostResponse deletePost(UserResponse user, Long postNo) {
         // post Id로 게시물 조회
-        Post findPost = postCommandRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid PostId"));
-        // 게시물의 작성자오 요청하는 사용자가 같은지 확인 -> 다르면 삭제 불가능
+        Post findPost = postCommandRepository.findById(postNo)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid PostNo"));
+        // 게시물의 작성자와 요청하는 사용자가 같은지 확인 -> 다르면 삭제 불가능
         if (findPost.getUserNoVO().getUserNo().equals(user.getUserNo())) {
             postCommandRepository.delete(findPost);
-            // 삭제한 게시물의 postId 반환
-            return DeletePostResponse.from(postId);
+            // 연관된 좋아요 삭제 : 삭제된 행의 수
+            Integer deleteLikeCnt = apiLikePostCommandService.deleteLikeWithPostNo(postNo);
+            // 삭제한 게시물의 postNo 반환
+            return DeletePostResponse.from(postNo, deleteLikeCnt);
         }
-
-        // TODO : 연관되는 좋아요 삭제하는 로직 필요
 
         throw new IllegalArgumentException("Not Matched Writer!!");
     }

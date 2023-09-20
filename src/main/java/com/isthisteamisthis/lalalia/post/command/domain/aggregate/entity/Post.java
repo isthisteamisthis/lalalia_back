@@ -54,4 +54,8 @@ public class Post {
         this.perfectScoreVO = perfectScoreVO;
     }
 
+    public void updateLikeCnt(int likeCnt) {
+        this.likeCnt = likeCnt;
+    }
+
 }

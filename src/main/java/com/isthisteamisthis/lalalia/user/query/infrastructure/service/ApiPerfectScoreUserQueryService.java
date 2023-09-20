@@ -16,10 +16,10 @@ public class ApiPerfectScoreUserQueryService {
     private final ApiPerfectScoreQueryRepository apiPerfectScoreQueryRepository;
 
     @Transactional
-    public List<PerfectScore> getMyPerfectScoreList(Long userId) {
+    public List<PerfectScore> getMyPerfectScoreList(Long userNo) {
 
         // userId로 userNoVO 생성
-        UserNoVO userNoVO = new UserNoVO(userId);
+        UserNoVO userNoVO = new UserNoVO(userNo);
         // userNo로 연관된 perfect score list 조회해서 반환
         return apiPerfectScoreQueryRepository.findPerfectScoresByUserNoVO(userNoVO);
 

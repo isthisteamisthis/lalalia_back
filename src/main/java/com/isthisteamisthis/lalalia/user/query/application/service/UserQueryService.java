@@ -35,11 +35,11 @@ public class UserQueryService {
         System.out.println("user = " + user.getEmail());
 
         // 사용자가 작성한 게시물 리스트 가져오기
-        List<Post> postList = apiPostUserQueryService.getMyPostList(userId);
+        List<Post> postList = apiPostUserQueryService.getMyPostList(user.getUserNo());
         // 사용자의 노래 리스트 가져오기
-        List<PerfectScore> perfectScoreList = apiPerfectScoreUserQueryService.getMyPerfectScoreList(userId);
+        List<PerfectScore> perfectScoreList = apiPerfectScoreUserQueryService.getMyPerfectScoreList(user.getUserNo());
         // 사용자의 ai 데모곡 리스트 가져오기
-        List<ComposeSong> composeSongList = apiComposeSongUserQueryService.getMyComposeSongList(userId);
+        List<ComposeSong> composeSongList = apiComposeSongUserQueryService.getMyComposeSongList(user.getUserNo());
 
         return MyPageResponse.from(user, postList, perfectScoreList, composeSongList);
 
