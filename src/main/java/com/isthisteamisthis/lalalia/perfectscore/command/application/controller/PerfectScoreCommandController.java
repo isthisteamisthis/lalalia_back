@@ -32,15 +32,6 @@ public class PerfectScoreCommandController {
     @PostMapping("/api/perfect-scores")
     public ResponseEntity<ApiResponse> createPerfectScore(CreatePerfectScoreRequest request, @RequestPart("perfect-score") MultipartFile perfectScoreWav) throws IOException {
 
-//        System.out.println("rangeWav = " + perfectScoreWav.getSize());
-
-//        long minUploadSize = 1024 * 1024;
-//        if(perfectScoreWav.getSize() < minUploadSize) {
-//            System.out.println(" 작다!! ");
-//            perfectScoreWav = voiceRangeInfraService.increaseFileSize(perfectScoreWav);
-//        }
-
- //        Float result = perfectScoreInfraService.getScoreResult(perfectScoreWav.getResource());
         String fileDirectory = saveWAVFileService.savePerfectScoreFile(perfectScoreWav);
         PerfectScoreCommandResponse response = perfectScoreCommandService.createPerfectScore(request, 100F, fileDirectory);
 

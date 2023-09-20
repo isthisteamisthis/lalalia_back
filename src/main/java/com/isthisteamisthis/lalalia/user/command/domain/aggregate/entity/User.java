@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -43,6 +45,9 @@ public class User {
     @Column
     private String category;
 
+    @Column
+    private String recommendSongList;
+
     @Builder
     public User(Long userNo, Long userId,String nickname, String email, String userIntro, Float avgScore, Float maxRange, Float minRange, String category) {
         this.userNo = userNo;
@@ -58,6 +63,9 @@ public class User {
 
     public void addMinVoiceRange(MinRangeVO minRange) {
         this.minRange = minRange;
+    }
+    public void addRecommendSongList(String recommendSongList) {
+        this.recommendSongList = recommendSongList;
     }
 
     public void addCategory(String category) {
