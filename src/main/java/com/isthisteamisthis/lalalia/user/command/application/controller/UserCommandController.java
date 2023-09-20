@@ -3,10 +3,7 @@ package com.isthisteamisthis.lalalia.user.command.application.controller;
 import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.*;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
@@ -34,9 +31,9 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final KakaoAuthService kakaoAuthService;
-    private final UserCommandRepository userCommandRepository;
     private final RangeSongDataService rangeSongDataService;
+    private final UserCommandRepository userCommandRepository;
+    private final KakaoAuthService kakaoAuthService;
 
     // 카카오로 로그인
     @PostMapping("/login-kakao")

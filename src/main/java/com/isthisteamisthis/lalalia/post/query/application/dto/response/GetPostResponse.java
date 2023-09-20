@@ -4,11 +4,13 @@ import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.ComposeSongVO;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.PerfectScoreVO;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.UserNoVO;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 
+@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class GetPostResponse {
@@ -22,18 +24,20 @@ public class GetPostResponse {
     private final ComposeSongVO composeSongVO;
     private final PerfectScoreVO perfectScoreVO;
     private final boolean isMe;
+    private final boolean like;
 
-    public static GetPostResponse from(Post post, boolean isMe) {
+    public static GetPostResponse from(Post post, boolean isMe, boolean like) {
         return new GetPostResponse(
                 post.getPostNo(),
                 post.getDate(),
                 post.getLikeCnt(),
-                post.getTitle(),
-                post.getContent(),
+                post.getTitle() != null ? post.getTitle() : null,
+                post.getContent() != null ? post.getContent() : null,
                 post.getUserNoVO(),
-                post.getComposeSongVO(),
-                post.getPerfectScoreVO(),
-                isMe
+                post.getComposeSongVO() != null ? post.getComposeSongVO() : null,
+                post.getPerfectScoreVO() != null ? post.getPerfectScoreVO() : null,
+                isMe,
+                like
         );
 
     }

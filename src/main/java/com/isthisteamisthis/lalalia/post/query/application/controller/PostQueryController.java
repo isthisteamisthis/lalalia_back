@@ -44,12 +44,12 @@ public class PostQueryController {
     }
 
     // 하나의 내 게시물 상세 조회
-    @GetMapping("my-page/posts/{postId}")
-    public ResponseEntity<ApiResponse> getMyPagePost(@RequestHeader Map<String, String> requestHeader, @PathVariable Long postId) {
+    @GetMapping("my-page/posts/{postNo}")
+    public ResponseEntity<ApiResponse> getMyPagePost(@RequestHeader Map<String, String> requestHeader, @PathVariable("postNo") Long postNo) {
 
         UserResponse user = apiUserPostQueryService.getUser(requestHeader.get("authorization"));
 
-        GetMyPagePostResponse getMyPagePostResponse = postQueryService.getMyPagePost(user, postId);
+        GetMyPagePostResponse getMyPagePostResponse = postQueryService.getMyPagePost(user, postNo);
 
         return ResponseEntity.ok(ApiResponse.success("My Page : 게시물 상세 조회 성공", getMyPagePostResponse));
 
@@ -57,12 +57,12 @@ public class PostQueryController {
 
 
     // 하나의 게시물 상세 조회
-    @GetMapping("posts/{postId}")
-    public ResponseEntity<ApiResponse> getPost(@RequestHeader Map<String, String> requestHeader, @PathVariable Long postId) {
-
+    @GetMapping("posts/{postNo}")
+    public ResponseEntity<ApiResponse> getPost(@RequestHeader Map<String, String> requestHeader,
+                                               @PathVariable("postNo") Long postNo) {
         UserResponse user = apiUserPostQueryService.getUser(requestHeader.get("authorization"));
 
-        GetPostResponse getPostResponse = postQueryService.getCommunityPost(user, postId);
+        GetPostResponse getPostResponse = postQueryService.getCommunityPost(user, postNo);
 
         return ResponseEntity.ok(ApiResponse.success("Community : 게시물 상세 조회 성공", getPostResponse));
 
