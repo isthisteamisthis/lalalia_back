@@ -1,16 +1,13 @@
 package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
-import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
+import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
-import com.isthisteamisthis.lalalia.user.command.application.dto.request.VoiceRangeRequest;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.CategoryResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoProfileResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
-import com.isthisteamisthis.lalalia.user.command.application.dto.response.MinVoiceRangeResponse;
+import com.isthisteamisthis.lalalia.user.command.application.dto.response.*;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
 import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import com.isthisteamisthis.lalalia.user.command.domain.repository.UserCommandRepository;
 import com.isthisteamisthis.lalalia.user.command.infrastructure.service.VoiceRangeInfraService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 @Tag(name = "회원 Command API")
 @RestController
@@ -31,8 +29,8 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final SaveWAVFileService saveWAVFileService;
-
+    private final RangeSongDataService rangeSongDataService;
+    private final UserCommandRepository userCommandRepository;
     private final KakaoAuthService kakaoAuthService;
 
     // 카카오로 로그인
@@ -86,21 +84,6 @@ public class UserCommandController {
         }
     }
 
-    // 작곡가, 가수 선택
-    @PostMapping("/category")
-    public ResponseEntity<ApiResponse> selectCategory(@RequestHeader Map<String, String> requestHeader, @RequestBody CategoryRequest categoryRequest) {
-        // 헤더에서 jwt 토큰 추출
-        String authorizationHeader = requestHeader.get("authorization");
-        // jwt 토큰을 이용해서 userID 추출
-        Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
-        // user 에 category 추가
-        userCommandService.selectCategory(userId, categoryRequest.getCategory());
-
-        CategoryResponse categoryResponse = new CategoryResponse(categoryRequest.getCategory());
-
-        return ResponseEntity.ok(ApiResponse.success("category 등록 완료", categoryResponse));
-    }
-  
     // 작곡가, 가수 선택
     @PostMapping("/category")
     public ResponseEntity<ApiResponse> selectCategory(@RequestHeader Map<String, String> requestHeader, @RequestBody CategoryRequest categoryRequest) {
