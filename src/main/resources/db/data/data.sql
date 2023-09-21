@@ -12,11 +12,13 @@ INSERT INTO TBL_LIKE(post_no, user_no)
 VALUES (1, 1);
 INSERT INTO TBL_LIKE(post_no, user_no)
 VALUES (2, 1);
-VALUES (1, 3026079672, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER', 100, 10);
--- VALUES (1, 3016936010, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER', 100, 10);
--- INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category)
--- VALUES (1, 1234123530, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER');
--- VALUES (1, 3016936010, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER');
+
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (1, 'test1', 1);
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (2, 'test2', 1);
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (3, 'test3', 1);
 
 INSERT INTO TBL_RANGE_SONG_DATA(data_song_no, song_name, artist_name, image_url)
 VALUES (1, '모든날모든순간','폴 킴', 'https://image.bugsm.co.kr/album/images/200/201547/20154722.jpg?version=20230601001519.0');

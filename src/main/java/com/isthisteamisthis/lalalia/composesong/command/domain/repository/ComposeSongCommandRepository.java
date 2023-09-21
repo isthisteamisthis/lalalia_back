@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface ComposeSongCommandRepository extends JpaRepository<ComposeSong, Long> {
 
-    Optional<ComposeSong> findComposeSongByComposeSongNo(UUID composeSongNo);
+    Optional<ComposeSong> findComposeSongByIdentifier(UUID identifier);
 }

@@ -5,7 +5,6 @@ import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.
 import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.vo.UserNoVO;
 import com.isthisteamisthis.lalalia.composesong.command.domain.repository.ComposeSongCommandRepository;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
-import com.isthisteamisthis.lalalia.user.command.domain.aggregate.vo.MinRangeVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,7 @@ public class ComposeSongCommandService {
         UUID id = UUID.fromString(request.getIdentifier());
 
         ComposeSong composeSong = ComposeSong.builder()
-                .composeSongNo(id)
+                .identifier(id)
                 .title(request.getName())
                 .imgFile(imgFilePath)
                 .originalFile(originalFilePath)

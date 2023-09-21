@@ -1,5 +1,6 @@
 package com.isthisteamisthis.lalalia.composesong.command.application.controller;
 
+import com.google.firebase.auth.FirebaseAuthException;
 import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
 import com.isthisteamisthis.lalalia.composesong.command.application.dto.request.CreateComposeSongRequest;
@@ -43,12 +44,14 @@ public class ComposeSongCommandController {
                                                         @RequestPart("model") String model,
                                                         @RequestPart("octave") String octave,
                                                         @RequestPart("index") String index,
-                                                        @RequestPart("song") MultipartFile file) throws IOException {
+                                                        @RequestPart("song") MultipartFile file) throws IOException, FirebaseAuthException {
 
         UUID identifier = UUID.randomUUID();
 
         String authorizationHeader = requestHeader.get("authorization");
         Long userId = userCommandService.getUserIdFromToken(authorizationHeader);
+
+        System.out.println("userId = " + userId);
         Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
 
 
@@ -74,7 +77,7 @@ public class ComposeSongCommandController {
     public ResponseEntity<ApiResponse> saveAiDemoSong(@RequestPart("id") String identifier,
                                                       @RequestPart("file") MultipartFile aiSongWav) throws IOException {
 
-        Optional<ComposeSong> optionalComposeSong = composeSongCommandRepository.findComposeSongByComposeSongNo(UUID.fromString(identifier));
+        Optional<ComposeSong> optionalComposeSong = composeSongCommandRepository.findComposeSongByIdentifier(UUID.fromString(identifier));
 
         if(optionalComposeSong.isPresent()) {
             ComposeSong composeSong = optionalComposeSong.get();

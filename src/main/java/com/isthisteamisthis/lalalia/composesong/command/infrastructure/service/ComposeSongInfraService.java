@@ -24,15 +24,6 @@ public class ComposeSongInfraService {
         bodyBuilder.part("index", request.getIndex());
 
 
-//        String response = webClient.post()
-//                .uri("/aicover")
-//                .contentType(MediaType.MULTIPART_FORM_DATA)  // Set the content type here
-//                .body(BodyInserters.fromMultipartData(bodyBuilder.build()))  // Use fromMultipartData instead of fromValue
-//                .accept(MediaType.MULTIPART_FORM_DATA)
-//                .retrieve()
-//                .bodyToMono(String.class)
-//                .block();
-
         webClient.post()
                 .uri("/aicover")
                 .contentType(MediaType.MULTIPART_FORM_DATA)  // Set the content type here
@@ -48,9 +39,6 @@ public class ComposeSongInfraService {
                         System.out.println("Request failed with status code: " + statusCode);
                     }
                 }, System.out::println);
-
-
-                //전송 후 끝
 
     }
 }

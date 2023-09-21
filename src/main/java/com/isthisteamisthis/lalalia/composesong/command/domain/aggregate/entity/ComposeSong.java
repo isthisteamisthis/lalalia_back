@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -16,8 +15,11 @@ import java.util.UUID;
 public class ComposeSong {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long composeSongNo;
+
     @Column(columnDefinition = "BINARY(16)")
-    private UUID composeSongNo;
+    private UUID identifier;
 
     @Column
     private String title;
@@ -33,8 +35,8 @@ public class ComposeSong {
     @Embedded
     private UserNoVO userNoVO;
     @Builder
-    public ComposeSong(UUID composeSongNo, String title, String imgFile, String originalFile, UserNoVO userNoVO) {
-        this. composeSongNo = composeSongNo;
+    public ComposeSong(UUID identifier, String title, String imgFile, String originalFile, UserNoVO userNoVO) {
+        this. identifier = identifier;
         this.title = title;
         this.imgFile = imgFile;
         this.originalFile = originalFile;
