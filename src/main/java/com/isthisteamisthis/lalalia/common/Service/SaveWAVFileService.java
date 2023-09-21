@@ -1,5 +1,10 @@
 package com.isthisteamisthis.lalalia.common.Service;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.Bucket;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.cloud.StorageClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,87 +16,49 @@ import java.util.UUID;
 
 @Service
 public class SaveWAVFileService {
-    private final String perfectScoreDirectory = "C:\\september-ai\\db\\perfect-score";
-    private final String voiceRangeDirectory = "C:\\september-ai\\db\\voice-range";
-    private final String aiSongDirectory = "C:\\september-ai\\db\\ai-songs";
+
+    @Value("${app.firebase-bucket}")
+    private String firebaseBucket;
+
+    @Value("${app.storage-link}")
+    private String storageLink;
 
     public String savePerfectScoreFile(MultipartFile perfectScoreWav) throws IOException {
-        File directory = new File(perfectScoreDirectory);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
 
-        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream content = new ByteArrayInputStream(perfectScoreWav.getBytes());
+        String name = UUID.randomUUID() + ".wav";
+        Blob blob = bucket.create(name, content, perfectScoreWav.getContentType());
 
-        Path filePath = Paths.get(perfectScoreDirectory, uniqueFileName);
-
-        try (InputStream inputStream = perfectScoreWav.getInputStream();
-             OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-
-        return perfectScoreDirectory + "\\" + uniqueFileName;
+        return storageLink + name + "?alt=media";
     }
 
-    public String saveVoiceRangeFile(MultipartFile voiceRangeWav) throws IOException {  //test 용
-        File directory = new File(voiceRangeDirectory);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+    public String saveAiOriginalFile(MultipartFile file) throws IOException {  //test 용
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream content = new ByteArrayInputStream(file.getBytes());
+        String name = UUID.randomUUID() + ".wav";
+        Blob blob = bucket.create(name, content, file.getContentType());
 
-        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
-
-        Path filePath = Paths.get(voiceRangeDirectory, uniqueFileName);
-
-        try (InputStream inputStream = voiceRangeWav.getInputStream();
-             OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-
-        return voiceRangeDirectory + "\\" + uniqueFileName;
+        return storageLink + name + "?alt=media";
     }
 
     public String saveAiSongFile(MultipartFile aiSongWav) throws IOException {  //test 용
-        File directory = new File(aiSongDirectory);
-        if (!directory.exists()) {
-            directory.mkdirs();
-        }
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream content = new ByteArrayInputStream(aiSongWav.getBytes());
+        String name = UUID.randomUUID() + ".wav";
+        Blob blob = bucket.create(name, content, aiSongWav.getContentType());
 
-//        String uniqueFileName = UUID.randomUUID().toString() + ".wav";
-        String uniqueFileName = "여형구 사랑했나봐" + ".wav";
-
-        Path filePath = Paths.get(aiSongDirectory, uniqueFileName);
-
-        try (InputStream inputStream = aiSongWav.getInputStream();
-             OutputStream outputStream = new FileOutputStream(filePath.toFile())) {
-
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-
-        return aiSongDirectory + "\\" + uniqueFileName;
+        return storageLink + name + "?alt=media";
     }
 
+    public String saveCoverImg(MultipartFile img) throws IOException, FirebaseAuthException {
+        
+        Bucket bucket = StorageClient.getInstance().bucket(firebaseBucket);
+        InputStream content = new ByteArrayInputStream(img.getBytes());
+        String name = UUID.randomUUID().toString();
+        Blob blob = bucket.create(name, content, img.getContentType());
+        
+        return storageLink + name + "?alt=media";
+
+    }
 }

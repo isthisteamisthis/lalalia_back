@@ -1,6 +1,5 @@
 package com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity;
 
-import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.vo.SongDataNoVO;
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.vo.UserNoVO;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,23 +28,14 @@ public class PerfectScore {
     private Float score;
 
     @Column
-    private Float songLength;
-
-    @Column
     private String wavFile;
 
-    @Embedded
-    private SongDataNoVO songDataNoVO;
-
     @Builder
-    public PerfectScore(Long perfectScoreNo, UserNoVO userNoVO, String songName, Float score, Float songLength, String wavFile, SongDataNoVO songDataNoVO) {
-        this.perfectScoreNo = perfectScoreNo;
+    public PerfectScore(UserNoVO userNoVO, String songName, Float score, String wavFile) {
         this.userNoVO = userNoVO;
         this.songName = songName;
         this.score = score;
-        this.songLength = songLength;
         this.wavFile = wavFile;
-        this.songDataNoVO = songDataNoVO;
     }
 
 }

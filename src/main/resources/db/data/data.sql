@@ -13,6 +13,13 @@ VALUES (1, 1);
 INSERT INTO TBL_LIKE(post_no, user_no)
 VALUES (2, 1);
 
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (1, 'test1', 1);
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (2, 'test2', 1);
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
+VALUES (3, 'test3', 1);
+
 INSERT INTO TBL_RANGE_SONG_DATA(data_song_no, song_name, artist_name, image_url)
 VALUES (1, '모든날모든순간','폴 킴', 'https://image.bugsm.co.kr/album/images/200/201547/20154722.jpg?version=20230601001519.0');
 INSERT INTO TBL_RANGE_SONG_DATA(data_song_no, song_name, artist_name, image_url)
