@@ -39,7 +39,7 @@ public class PostCommandService {
 
         Post savedPost = postCommandRepository.save(post);
 
-        return CreatePostResponse.form(savedPost);
+        return CreatePostResponse.from(savedPost);
     }
 
     // 게시물 삭제
