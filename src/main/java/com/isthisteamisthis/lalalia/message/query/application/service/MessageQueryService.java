@@ -3,7 +3,6 @@ package com.isthisteamisthis.lalalia.message.query.application.service;
 import com.isthisteamisthis.lalalia.message.command.domain.aggregate.entity.Message;
 import com.isthisteamisthis.lalalia.message.command.domain.aggregate.vo.GetUserNoVO;
 import com.isthisteamisthis.lalalia.message.command.domain.aggregate.vo.SendUserNoVO;
-import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetAllMessageResponse;
 import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetMessageListResponse;
 import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetMessageResponse;
 import com.isthisteamisthis.lalalia.message.query.domain.repository.MessageQueryRepository;
@@ -23,30 +22,6 @@ public class MessageQueryService {
     private final MessageQueryRepository messageQueryRepository;
     private final ApiUserMessageQueryService apiUserMessageQueryService;
 
-    // 사용자가 받은 메세지 리스트 조회
-    @Transactional(readOnly = true)
-    public GetAllMessageResponse getAllReceivedMessage(UserResponse user) {
-        // 현재 사용자의 userNo로 getUserNoVO 생성
-        GetUserNoVO getUserNoVO = new GetUserNoVO(user.getUserNo());
-        // getUserNoVO로 message 리스트 조회
-        List<Message> messageList = messageQueryRepository.findMessagesByGetUserNoVOOrderByDateDesc(getUserNoVO);
-
-        return getGetAllMessageResponse(messageList);
-
-    }
-
-    // 사용자가 보낸 메세지 리스트 조회
-    @Transactional(readOnly = true)
-    public GetAllMessageResponse getAllSentMessage(UserResponse user) {
-        // 현재 사용자의 userNo로 getUserNoVO 생성
-        SendUserNoVO sendUserNoVO = new SendUserNoVO(user.getUserNo());
-        // getUserNoVO로 message 리스트 조회
-        List<Message> messageList = messageQueryRepository.findMessagesBySendUserNoVOOrderByDateDesc(sendUserNoVO);
-        //  message list 에 nickname 을 추가해서 getMessageListResponse list 로 변환 -> 변환한 list 를 getAllMessageResponse 로 변환
-        return getGetAllMessageResponse(messageList);
-
-    }
-
     // 하나의 메세지 상세 조회
     @Transactional(readOnly = true)
     public GetMessageResponse getMessage(UserResponse user, Long messageNo) {
@@ -63,8 +38,33 @@ public class MessageQueryService {
 
     }
 
+    // 사용자가 받은 메세지 리스트 조회
+    @Transactional(readOnly = true)
+    public List<GetMessageListResponse> getAllReceivedMessage(UserResponse user) {
+        // 현재 사용자의 userNo로 getUserNoVO 생성
+        GetUserNoVO getUserNoVO = new GetUserNoVO(user.getUserNo());
+        // getUserNoVO로 message 리스트 조회
+        List<Message> messageList = messageQueryRepository.findMessagesByGetUserNoVOOrderByDateDesc(getUserNoVO);
+        //  message list 에 nickname 을 추가해서 getMessageListResponse list 로 변환해서 반환
+        return getMessageListResponse(messageList);
+
+    }
+
+    // 사용자가 보낸 메세지 리스트 조회
+    @Transactional(readOnly = true)
+    public List<GetMessageListResponse> getAllSentMessage(UserResponse user) {
+        // 현재 사용자의 userNo로 getUserNoVO 생성
+        SendUserNoVO sendUserNoVO = new SendUserNoVO(user.getUserNo());
+        // getUserNoVO로 message 리스트 조회
+        List<Message> messageList = messageQueryRepository.findMessagesBySendUserNoVOOrderByDateDesc(sendUserNoVO);
+        //  message list 에 nickname 을 추가해서 getMessageListResponse list 로 변환해서 반환
+        return getMessageListResponse(messageList);
+
+    }
+
     // message list 에 nickname 을 추가해서 getMessageListResponse list 로 변환
-    private GetAllMessageResponse getGetAllMessageResponse(List<Message> messageList) {
+    private List<GetMessageListResponse> getMessageListResponse(List<Message> messageList) {
+
         List<GetMessageListResponse> response = messageList.stream().map(
                 message -> {
 
@@ -78,6 +78,6 @@ public class MessageQueryService {
 
                 }).collect(Collectors.toList());
 
-        return GetAllMessageResponse.from(response);
+        return response;
     }
 }

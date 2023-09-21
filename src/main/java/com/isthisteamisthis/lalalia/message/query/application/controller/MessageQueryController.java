@@ -1,7 +1,7 @@
 package com.isthisteamisthis.lalalia.message.query.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
-import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetAllMessageResponse;
+import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetMessageListResponse;
 import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetMessageResponse;
 import com.isthisteamisthis.lalalia.message.query.application.service.MessageQueryService;
 import com.isthisteamisthis.lalalia.message.query.infrastructure.service.ApiUserMessageQueryService;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -28,7 +29,7 @@ public class MessageQueryController {
         // 사용자 정보
         UserResponse user = apiUserMessageQueryService.getUser(requestHeader.get("authorization"));
         // 받은 메세지 리스트 조회해서 가져오기
-        GetAllMessageResponse response = messageQueryService.getAllReceivedMessage(user);
+        List<GetMessageListResponse> response = messageQueryService.getAllReceivedMessage(user);
 
         return ResponseEntity.ok(ApiResponse.success("받은 메세지 리스트 조회 성공", response));
 
@@ -40,7 +41,7 @@ public class MessageQueryController {
         // 사용자 정보
         UserResponse user = apiUserMessageQueryService.getUser(requestHeader.get("authorization"));
         // 보낸 메세지 리스트 조회해서 가져오기
-        GetAllMessageResponse response = messageQueryService.getAllSentMessage(user);
+        List<GetMessageListResponse> response = messageQueryService.getAllSentMessage(user);
 
         return ResponseEntity.ok(ApiResponse.success("보낸 메세지 리스트 조회 성공", response));
 
