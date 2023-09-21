@@ -9,11 +9,13 @@ import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetPostR
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetUserPostResponse;
 import com.isthisteamisthis.lalalia.post.query.domain.repository.PostQueryRepository;
 import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiLikePostQueryService;
+import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiUserPostQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,26 +23,41 @@ public class PostQueryService {
 
     private final PostQueryRepository postQueryRepository;
     private final ApiLikePostQueryService apiLikePostQueryService;
+    private final ApiUserPostQueryService apiUserPostQueryService;
 
     // 사용자의 게시물 전체 조회
     @Transactional(readOnly = true)
-    public GetUserPostResponse getPostsByUserNo(UserResponse user) {
+    public List<GetUserPostResponse> getPostsByUserNo(UserResponse user) {
 
         Long userNo = user.getUserNo();
         // userNoVO 로 사용자의 전체 게시물 조회
         List<Post> postList = postQueryRepository.findPostsByUserNoVO(new UserNoVO(userNo));
 
-        return GetUserPostResponse.from(postList);
+        List<GetUserPostResponse> response = postList.stream()
+                .map(GetUserPostResponse::from).collect(Collectors.toList());
+
+        return response;
 
     }
 
     // 게시글 전체 조회
     @Transactional(readOnly = true)
-    public GetAllPostsResponse getAllPosts() {
+    public List<GetAllPostsResponse> getAllPosts() {
         // 게시물 전체 조회 : 좋아요 내림차순
         List<Post> postList = postQueryRepository.findAllByOrderByLikeCntDesc();
+        // 조회한 List<Post>를 List<GetAllPostsResponse>로 변환
+        List<GetAllPostsResponse> response = postList.stream().map(
+                post -> {
 
-        return GetAllPostsResponse.from(postList);
+                    Long userNo = post.getUserNoVO().getUserNo();
+                    // userNo 로 user 를 조회해서 nickname 가져오기
+                    String nickname = apiUserPostQueryService.getNicknameByUserNo(userNo);
+
+                    return GetAllPostsResponse.from(post, nickname);
+
+                }).collect(Collectors.toList());
+
+        return response;
     }
 
     // my page : 하나의 게시물 상세 조회

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -27,7 +28,7 @@ public class PostQueryController {
 
         UserResponse user = apiUserPostQueryService.getUser(requestHeader.get("authorization"));
 
-        GetUserPostResponse getUserPostResponse = postQueryService.getPostsByUserNo(user);
+        List<GetUserPostResponse> getUserPostResponse = postQueryService.getPostsByUserNo(user);
 
         return ResponseEntity.ok(ApiResponse.success("사용자의 게시물 전체 조회 성공", getUserPostResponse));
 
@@ -37,7 +38,7 @@ public class PostQueryController {
     @GetMapping("/posts")
     public ResponseEntity<ApiResponse> getAllPosts(@RequestHeader Map<String, String> requestHeader) {
 
-        GetAllPostsResponse getAllPostsResponse = postQueryService.getAllPosts();
+        List<GetAllPostsResponse> getAllPostsResponse = postQueryService.getAllPosts();
 
         return ResponseEntity.ok(ApiResponse.success("게시물 전체 조회 성공", getAllPostsResponse));
 

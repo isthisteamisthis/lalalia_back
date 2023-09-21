@@ -20,6 +20,7 @@ public class CreatePostResponse {
     private final Long userNo;
     private final String title;
     private final String content;
+    private final String imgFile;
 
     public static CreatePostResponse from(Post post) {
         return new CreatePostResponse(
@@ -30,7 +31,8 @@ public class CreatePostResponse {
                 post.getPerfectScoreVO() != null ? post.getPerfectScoreVO().getPerfectScoreNo() : null,
                 post.getUserNoVO().getUserNo(),
                 post.getTitle(),
-                post.getContent()
+                post.getContent(),
+                post.getImgFile()
         );
     }
 }

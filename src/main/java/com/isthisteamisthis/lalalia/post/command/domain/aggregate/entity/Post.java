@@ -33,6 +33,9 @@ public class Post {
     @Column
     private String content;
 
+    @Column
+    private String imgFile;
+
     @Embedded
     private UserNoVO userNoVO;
 
@@ -43,12 +46,13 @@ public class Post {
     private PerfectScoreVO perfectScoreVO;
 
     @Builder
-    public Post(Long postNo, Date date, int likeCnt, String title, String content, UserNoVO userNoVO, ComposeSongVO composeSongVO, PerfectScoreVO perfectScoreVO) {
+    public Post(Long postNo, Date date, int likeCnt, String title, String content, String imgFile, UserNoVO userNoVO, ComposeSongVO composeSongVO, PerfectScoreVO perfectScoreVO) {
         this.postNo = postNo;
         this.date = date;
         this.likeCnt = likeCnt;
         this.title = title;
         this.content = content;
+        this.imgFile = imgFile;
         this.userNoVO = userNoVO;
         this.composeSongVO = composeSongVO;
         this.perfectScoreVO = perfectScoreVO;

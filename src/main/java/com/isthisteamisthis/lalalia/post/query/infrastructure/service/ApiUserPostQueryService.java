@@ -24,4 +24,8 @@ public class ApiUserPostQueryService {
         return UserResponse.from(user);
     }
 
+    public String getNicknameByUserNo(Long userNo) {
+        return userQueryRepository.getNicknameByUserNo(userNo);
+    }
+
 }
