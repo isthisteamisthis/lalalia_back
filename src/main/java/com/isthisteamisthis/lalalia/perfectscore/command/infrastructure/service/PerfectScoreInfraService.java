@@ -14,28 +14,17 @@ public class PerfectScoreInfraService {
 
     private WebClient webClient = WebClient.builder().baseUrl("http://192.168.0.55:8888").build();
     public Float getScoreResult(Resource wavFile) {
-        int cnt = 0;
 
-        PerfectScoreInfraResponse result = webClient.post()
-                .uri("/")
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(BodyInserters.fromMultipartData("file", wavFile))
-                .retrieve()
-                .bodyToMono(PerfectScoreInfraResponse.class)
-                .block();
+//        PerfectScoreInfraResponse result = webClient.post()
+//                .uri("/")
+//                .contentType(MediaType.MULTIPART_FORM_DATA)
+//                .body(BodyInserters.fromMultipartData("file", wavFile))
+//                .retrieve()
+//                .bodyToMono(PerfectScoreInfraResponse.class)
+//                .block();
+//
+//        return Float.parseFloat(result.getScore());
 
-
-//        if(result == null) {
-//           throw new IllegalArgumentException("결과값이 넘어오지 않았습니다.");
-//        } else {
-//            for (Boolean bool : result) {
-//                if (bool) {
-//                    cnt++;
-//                }
-//            }
-//        }
-
-//        return (float) (cnt * 100) / result.length;
         return 100F;
     }
 }

@@ -2,7 +2,6 @@ package com.isthisteamisthis.lalalia.composesong.command.application.dto.request
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.core.io.Resource;
 
 
 @Getter
@@ -15,7 +14,6 @@ public class ComposeSongInfraRequest {
     String octave;
 
     String index;
-
 
     public ComposeSongInfraRequest(byte[] music, String model, String octave, String index) {
         this.music = music;

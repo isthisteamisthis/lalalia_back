@@ -41,7 +41,7 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String jwtToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(jwtToken);
+            Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(jwtToken);
             return true;
         } catch (Exception e) {
             // 토큰이 유효하지 않을 경우 예외 발생

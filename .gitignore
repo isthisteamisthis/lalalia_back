@@ -41,3 +41,6 @@ bootstrap.yml
 
 ### YAML ###
 src/main/resources/application.yml
+
+###firebase key###
+src/main/resources/serviceAccountKey.json

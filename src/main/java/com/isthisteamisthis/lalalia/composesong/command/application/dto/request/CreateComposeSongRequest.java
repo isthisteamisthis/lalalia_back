@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Setter
 @Getter
 public class CreateComposeSongRequest{
+    String identifier;
     String name;
 
     String model;
@@ -21,7 +22,8 @@ public class CreateComposeSongRequest{
 
     String index;
 
-    public CreateComposeSongRequest(String name, String model, String octave, String index) {
+    public CreateComposeSongRequest(String identifier, String name, String model, String octave, String index) {
+        this.identifier = identifier;
         this.name = name;
         this.model = model;
         this.octave = octave;
