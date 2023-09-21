@@ -1,6 +1,6 @@
 package com.isthisteamisthis.lalalia.user.command.infrastructure.service;
 
-import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
+import com.isthisteamisthis.lalalia.songdata.query.application.service.SongDataService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.RecommendationRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.CreateRangeSongResponse;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.MaxVoiceRangeResponse;
@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class VoiceRangeInfraService {
 
-    private final RangeSongDataService rangeSongDataService;
+    private final SongDataService rangeSongDataService;
 
     private WebClient webClient = WebClient.builder().baseUrl("http://192.168.0.165:8888").build();
 
