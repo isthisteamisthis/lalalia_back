@@ -1,9 +1,6 @@
 package com.isthisteamisthis.lalalia.post.query.application.dto.response;
 
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
-import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.ComposeSongVO;
-import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.PerfectScoreVO;
-import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.UserNoVO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +17,9 @@ public class GetMyPagePostResponse {
     private final int likeCnt;
     private final String title;
     private final String content;
-    private final UserNoVO userNoVO;
-    private final ComposeSongVO composeSongVO;
-    private final PerfectScoreVO perfectScoreVO;
+    private final Long userNo;
+    private final Long composeSongNo;
+    private final Long perfectScoreNo;
     private final boolean like;
 
     public static GetMyPagePostResponse from(Post post, boolean like) {
@@ -32,9 +29,9 @@ public class GetMyPagePostResponse {
                 post.getLikeCnt(),
                 post.getTitle() != null ? post.getTitle() : null,
                 post.getContent() != null ? post.getContent() : null,
-                post.getUserNoVO(),
-                post.getComposeSongVO() != null ? post.getComposeSongVO() : null,
-                post.getPerfectScoreVO() != null ? post.getPerfectScoreVO() : null,
+                post.getUserNoVO().getUserNo(),
+                post.getComposeSongVO() != null ? post.getComposeSongVO().getComposeSongNo() : null,
+                post.getPerfectScoreVO() != null ? post.getPerfectScoreVO().getPerfectScoreNo() : null,
                 like
         );
 
