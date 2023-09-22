@@ -55,4 +55,6 @@ public class PerfectScoreQueryService {
         else throw new IllegalArgumentException("일치하는 퍼펙트 스코어가 없습니다.");
 
     }
+
+
 }

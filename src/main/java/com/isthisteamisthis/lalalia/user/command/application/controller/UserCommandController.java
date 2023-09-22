@@ -1,7 +1,8 @@
 package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
-import com.isthisteamisthis.lalalia.songdata.query.application.service.SongDataService;
+import com.isthisteamisthis.lalalia.common.Service.SaveWAVFileService;
+import com.isthisteamisthis.lalalia.songdata.query.application.service.SongDataQueryService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.*;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
@@ -29,7 +30,7 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final SongDataService rangeSongDataService;
+    private final SongDataQueryService rangeSongDataService;
     private final UserCommandRepository userCommandRepository;
     private final KakaoAuthService kakaoAuthService;
 
