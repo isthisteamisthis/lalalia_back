@@ -1,8 +1,5 @@
 package com.isthisteamisthis.lalalia.user.query.application.dto.response;
 
-import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.ComposeSong;
-import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
-import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +21,7 @@ public class MyPageResponse {
     private final String maxNote;
     private final String maxOctave;
     private final Float minFrequency;
-    private final String manNote;
+    private final String minNote;
     private final String minOctave;
 
     private final List<PostResponse> postList;

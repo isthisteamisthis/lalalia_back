@@ -24,7 +24,7 @@ public class MessageQueryController {
     private final ApiUserMessageQueryService apiUserMessageQueryService;
 
     // 사용자가 받은 메세지 리스트 조회 : 날짜 내림차순(최신순)
-    @GetMapping("/massages/received")
+    @GetMapping("/messages/received")
     public ResponseEntity<ApiResponse> getAllReceivedMessage(@RequestHeader Map<String, String> requestHeader) {
         // 사용자 정보
         UserResponse user = apiUserMessageQueryService.getUser(requestHeader.get("authorization"));
@@ -36,7 +36,7 @@ public class MessageQueryController {
     }
 
     // 사용자가 보낸 메세지 리스트 조회 : 날짜 내림차순(최신순)
-    @GetMapping("/massages/sent")
+    @GetMapping("/messages/sent")
     public ResponseEntity<ApiResponse> getAllSentMessage(@RequestHeader Map<String, String> requestHeader) {
         // 사용자 정보
         UserResponse user = apiUserMessageQueryService.getUser(requestHeader.get("authorization"));

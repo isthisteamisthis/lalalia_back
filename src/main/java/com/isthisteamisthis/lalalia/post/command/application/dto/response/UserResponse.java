@@ -21,7 +21,7 @@ public class UserResponse {
     private final String maxNote;
     private final String maxOctave;
     private final Float minFrequency;
-    private final String manNote;
+    private final String minNote;
     private final String minOctave;
 
     public static UserResponse from(User user) {
