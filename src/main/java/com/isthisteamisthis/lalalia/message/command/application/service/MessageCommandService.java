@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class MessageCommandService {
@@ -27,7 +29,7 @@ public class MessageCommandService {
 
         Message message = Message.builder()
                 .content(request.getContent())
-                .date(request.getDate())
+                .date(new Date())
                 .sendUserNoVO(sendUserNoVO)
                 .getUserNoVO(getUserNoVO)
                 .build();
