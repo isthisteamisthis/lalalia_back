@@ -20,6 +20,13 @@ VALUES (2, 'test2', 1);
 INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
 VALUES (3, 'test3', 1);
 
+INSERT INTO TBL_PERFECT_SCORE(perfect_score_no, song_name, user_no, score)
+VALUES (1, 'test1', 1, 100);
+INSERT INTO TBL_PERFECT_SCORE(perfect_score_no, song_name, user_no, score)
+VALUES (2, 'test2', 1, 90);
+INSERT INTO TBL_PERFECT_SCORE(perfect_score_no, song_name, user_no, score)
+VALUES (3, 'test3', 1, 80);
+
 INSERT INTO TBL_SONG_DATA(song_data_no, song_name, artist_name, image_url)
 VALUES (1, '모든날모든순간','폴 킴', 'https://image.bugsm.co.kr/album/images/200/201547/20154722.jpg?version=20230601001519.0');
 INSERT INTO TBL_SONG_DATA(song_data_no, song_name, artist_name, image_url)
