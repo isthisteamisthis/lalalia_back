@@ -12,6 +12,5 @@ import java.util.Date;
 public class SendMessageRequest {
 
     private final String content;
-    private final Date date;
 
 }
