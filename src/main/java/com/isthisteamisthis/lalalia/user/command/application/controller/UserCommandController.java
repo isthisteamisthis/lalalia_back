@@ -1,7 +1,7 @@
 package com.isthisteamisthis.lalalia.user.command.application.controller;
 
 import com.isthisteamisthis.lalalia.common.ApiResponse;
-import com.isthisteamisthis.lalalia.rangesongdata.query.application.service.RangeSongDataService;
+import com.isthisteamisthis.lalalia.songdata.query.application.service.SongDataService;
 import com.isthisteamisthis.lalalia.user.command.application.dto.request.CategoryRequest;
 import com.isthisteamisthis.lalalia.user.command.application.dto.response.*;
 import com.isthisteamisthis.lalalia.user.command.application.service.KakaoAuthService;
@@ -18,11 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Spliterator;
 
 @Tag(name = "회원 Command API")
 @RestController
@@ -31,7 +29,7 @@ public class UserCommandController {
 
     private final UserCommandService userCommandService;
     private final VoiceRangeInfraService voiceRangeInfraService;
-    private final RangeSongDataService rangeSongDataService;
+    private final SongDataService rangeSongDataService;
     private final UserCommandRepository userCommandRepository;
     private final KakaoAuthService kakaoAuthService;
 

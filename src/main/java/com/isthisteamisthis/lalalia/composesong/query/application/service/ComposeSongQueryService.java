@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,4 +37,22 @@ public class ComposeSongQueryService {
 
         return FindComposeSongListResponse.from(composeSongList);
     }
+
+//    private List<FindComposeSongListResponse> getMessageListResponse(List<ComposeSong> composeSongList) {
+//
+//        List<FindComposeSongListResponse> response = composeSongList.stream().map(
+//                composeSong -> {
+//
+//                    Long sendUserNo = composeSong.getSendUserNoVO().getSendUserNo();
+//                    Long getUserNo = composeSong.getGetUserNoVO().getGetUserNo();
+//
+//                    String sendUserNickname = apiUserMessageQueryService.getNicknameByUserNo(sendUserNo);
+//                    String getUserNickname = apiUserMessageQueryService.getNicknameByUserNo(getUserNo);
+//
+//                    return FindComposeSongListResponse.from();
+//
+//                }).collect(Collectors.toList());
+//
+//        return response;
+//    }
 }

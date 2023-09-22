@@ -30,12 +30,16 @@ public class PerfectScore {
     @Column
     private String wavFile;
 
+    @Column
+    private String imgFile;
+
     @Builder
-    public PerfectScore(UserNoVO userNoVO, String songName, Float score, String wavFile) {
+    public PerfectScore(UserNoVO userNoVO, String songName, Float score, String wavFile, String imgFile) {
         this.userNoVO = userNoVO;
         this.songName = songName;
         this.score = score;
         this.wavFile = wavFile;
+        this.imgFile = imgFile;
     }
 
 }

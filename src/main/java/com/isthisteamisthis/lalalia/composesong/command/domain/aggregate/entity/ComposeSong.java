@@ -36,7 +36,7 @@ public class ComposeSong {
     private UserNoVO userNoVO;
     @Builder
     public ComposeSong(UUID identifier, String title, String imgFile, String originalFile, UserNoVO userNoVO) {
-        this. identifier = identifier;
+        this.identifier = identifier;
         this.title = title;
         this.imgFile = imgFile;
         this.originalFile = originalFile;
