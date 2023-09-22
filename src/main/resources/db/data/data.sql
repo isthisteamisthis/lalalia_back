@@ -1,5 +1,5 @@
-INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency)
-VALUES (1, 3016936010, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER', 100, 10);
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score)
+VALUES (1, 3016936010, '가수가 되고 싶은 학생입니다!', 'singer@gmail.com', 'SINGER', 100, 10, 0);
 
 INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no)
 VALUES (1, 1, 'contetetnet', '2020-03-26', 1, null, 'titlle', 1);

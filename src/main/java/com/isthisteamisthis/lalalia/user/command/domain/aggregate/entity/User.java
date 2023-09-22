@@ -85,6 +85,7 @@ public class User {
     public void updateEmail(String email) {
         this.email = email;
     }
-
-
+    public void updateAvgScore(Float score) {
+        this.avgScore = (this.avgScore + score) / 2;
+    }
 }

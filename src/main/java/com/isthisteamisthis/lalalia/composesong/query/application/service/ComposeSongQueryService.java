@@ -31,28 +31,27 @@ public class ComposeSongQueryService {
     }
 
     @Transactional(readOnly = true)
-    public FindComposeSongListResponse getComposeSongListByUserNoVO(UserNoVO userNoVO) {
+    public List<FindComposeSongListResponse> getComposeSongListByUserNoVO(UserNoVO userNoVO) {
 
         List<ComposeSong> composeSongList = composeSongQueryRepository.findComposeSongsByUserNoVO(userNoVO);
 
-        return FindComposeSongListResponse.from(composeSongList);
+        return getComposeSongListResponse(composeSongList);
     }
 
-//    private List<FindComposeSongListResponse> getMessageListResponse(List<ComposeSong> composeSongList) {
-//
-//        List<FindComposeSongListResponse> response = composeSongList.stream().map(
-//                composeSong -> {
-//
-//                    Long sendUserNo = composeSong.getSendUserNoVO().getSendUserNo();
-//                    Long getUserNo = composeSong.getGetUserNoVO().getGetUserNo();
-//
-//                    String sendUserNickname = apiUserMessageQueryService.getNicknameByUserNo(sendUserNo);
-//                    String getUserNickname = apiUserMessageQueryService.getNicknameByUserNo(getUserNo);
-//
-//                    return FindComposeSongListResponse.from();
-//
-//                }).collect(Collectors.toList());
-//
-//        return response;
-//    }
+    private List<FindComposeSongListResponse> getComposeSongListResponse(List<ComposeSong> composeSongList) {
+
+        List<FindComposeSongListResponse> response = composeSongList.stream().map(
+                composeSong -> {
+
+                    Long composeSongNo = composeSong.getComposeSongNo();
+                    Long userNo = composeSong.getUserNoVO().getUserNo();
+                    String title = composeSong.getTitle();
+                    String imgFile = composeSong.getImgFile();
+
+                    return FindComposeSongListResponse.from(composeSongNo, userNo, title, imgFile);
+
+                }).collect(Collectors.toList());
+
+        return response;
+    }
 }

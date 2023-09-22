@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @Tag(name = "AI 데모곡 Query API")
@@ -33,7 +34,7 @@ public class ComposeSongQueryController {
         Long userNo = userQueryService.findUserByUserId(userId).getUserNo();
 
 
-        FindComposeSongListResponse response = composeSongQueryService.getComposeSongListByUserNoVO(new UserNoVO(userNo));
+        List<FindComposeSongListResponse> response = composeSongQueryService.getComposeSongListByUserNoVO(new UserNoVO(userNo));
 
         return ResponseEntity.ok(ApiResponse.success("AI 데모곡 전체 조회 성공", response));
     }
