@@ -28,4 +28,7 @@ public class SongData {
 
     @Column
     private String mrUrl;
+
+    @Column
+    private String lyricUrl;
 }
