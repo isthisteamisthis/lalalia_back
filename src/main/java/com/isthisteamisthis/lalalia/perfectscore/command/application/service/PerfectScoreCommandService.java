@@ -5,6 +5,7 @@ import com.isthisteamisthis.lalalia.perfectscore.command.application.dto.respons
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.vo.UserNoVO;
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.repository.PerfectScoreCommandRespository;
+import com.isthisteamisthis.lalalia.user.command.application.service.UserCommandService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class PerfectScoreCommandService {
 
     private final PerfectScoreCommandRespository perfectScoreCommandRespository;
+    private final UserCommandService userCommandService;
     @Transactional
     public PerfectScoreCommandResponse createPerfectScore(Long userNo, CreatePerfectScoreRequest request, Float score, String perfectScoreWav) {
+
+        userCommandService.updateAvgScore(userNo, score);
+
 
         PerfectScore perfectScore = perfectScoreCommandRespository.save(PerfectScore.builder()
                 .userNoVO(new UserNoVO(userNo))

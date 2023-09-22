@@ -12,7 +12,4 @@ import java.io.Serializable;
 public class PerfectScoreInfraResponse implements Serializable {
 
     private final String score;
-    public String getScore() {
-        return score;
-    }
 }

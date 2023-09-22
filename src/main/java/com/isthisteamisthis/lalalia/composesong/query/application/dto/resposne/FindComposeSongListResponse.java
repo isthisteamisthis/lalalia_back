@@ -13,12 +13,18 @@ import java.util.List;
 @NoArgsConstructor(force = true)
 public class FindComposeSongListResponse {
 
-    @JsonProperty("compose_song_list")
-    private final List<ComposeSong> composeSongList;
+    private final Long composeSongNo;
+    private final Long userNo;
+    private final String title;
+    private final String imgFile;
 
-    public static FindComposeSongListResponse from(List<ComposeSong> composeSongList) {
+
+    public static FindComposeSongListResponse from(Long composeSongNo, Long userNo, String title, String imgFile) {
         return new FindComposeSongListResponse(
-                composeSongList
+                composeSongNo,
+                userNo,
+                title,
+                imgFile
         );
     }
 }

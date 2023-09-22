@@ -143,4 +143,15 @@ public class UserCommandService {
 
         user.addRecommendSongList(result);
     }
+
+    @Transactional
+    public void updateAvgScore(Long userNo, Float score) {
+
+        Optional<User> optionalUser = userCommandRepository.findById(userNo);
+
+        if(optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.updateAvgScore(score);
+        }
+    }
 }
