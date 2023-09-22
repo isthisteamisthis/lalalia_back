@@ -1,6 +1,7 @@
 package com.isthisteamisthis.lalalia.post.command.application.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,9 @@ public class CreatePostRequest {
     @JsonProperty("title")
     private final String title;
 
+    @JsonProperty("img_file")
+    private final String imgFile;
+
     public Long getComposeSongNo() {
         return composeSongNo;
     }
@@ -27,5 +31,9 @@ public class CreatePostRequest {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getImgFile() {
+        return imgFile;
     }
 }

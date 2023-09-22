@@ -33,6 +33,7 @@ public class PostCommandService {
                 .composeSongVO(new ComposeSongVO(createPostRequest.getComposeSongNo()))
                 .userNoVO(new UserNoVO(userResponse.getUserNo()))
                 .content(null)
+                .imgFile(createPostRequest.getImgFile())
                 .title(createPostRequest.getTitle())
                 .perfectScoreVO(new PerfectScoreVO(createPostRequest.getPerfectScoreNo()))
                 .build();

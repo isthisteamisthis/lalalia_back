@@ -17,6 +17,7 @@ public class GetMyPagePostResponse {
     private final int likeCnt;
     private final String title;
     private final String content;
+    private final String imgFile;
     private final Long userNo;
     private final Long composeSongNo;
     private final Long perfectScoreNo;
@@ -29,6 +30,7 @@ public class GetMyPagePostResponse {
                 post.getLikeCnt(),
                 post.getTitle() != null ? post.getTitle() : null,
                 post.getContent() != null ? post.getContent() : null,
+                post.getImgFile(),
                 post.getUserNoVO().getUserNo(),
                 post.getComposeSongVO() != null ? post.getComposeSongVO().getComposeSongNo() : null,
                 post.getPerfectScoreVO() != null ? post.getPerfectScoreVO().getPerfectScoreNo() : null,
