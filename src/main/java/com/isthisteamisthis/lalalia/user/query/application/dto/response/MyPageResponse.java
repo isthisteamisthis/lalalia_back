@@ -27,12 +27,14 @@ public class MyPageResponse {
     private final String manNote;
     private final String minOctave;
 
-    private final List<Post> postList;
-    private final List<PerfectScore> perfectScoreList;
-    private final List<ComposeSong> composeSongList;
+    private final List<PostResponse> postList;
+    private final List<PerfectScoreResponse> perfectScoreList;
+    private final List<ComposeSongResponse> composeSongList;
 
 
-    public static MyPageResponse from(User user, List<Post> postList, List<PerfectScore> perfectScoreList, List<ComposeSong> composeSongList) {
+    public static MyPageResponse from(User user, List<PostResponse> postList,
+                                      List<PerfectScoreResponse> perfectScoreList,
+                                      List<ComposeSongResponse> composeSongList) {
         return new MyPageResponse(
                 user.getUserNo(),
                 user.getUserId(),

@@ -5,7 +5,10 @@ import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
+import com.isthisteamisthis.lalalia.user.query.application.dto.response.ComposeSongResponse;
 import com.isthisteamisthis.lalalia.user.query.application.dto.response.MyPageResponse;
+import com.isthisteamisthis.lalalia.user.query.application.dto.response.PerfectScoreResponse;
+import com.isthisteamisthis.lalalia.user.query.application.dto.response.PostResponse;
 import com.isthisteamisthis.lalalia.user.query.domain.repository.UserQueryRepository;
 import com.isthisteamisthis.lalalia.user.query.infrastructure.service.ApiComposeSongUserQueryService;
 import com.isthisteamisthis.lalalia.user.query.infrastructure.service.ApiPerfectScoreUserQueryService;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,12 +40,15 @@ public class UserQueryService {
 
         // 사용자가 작성한 게시물 리스트 가져오기
         List<Post> postList = apiPostUserQueryService.getMyPostList(user.getUserNo());
+        List<PostResponse> postResponse = postList.stream().map(PostResponse::from).collect(Collectors.toList());
         // 사용자의 노래 리스트 가져오기
         List<PerfectScore> perfectScoreList = apiPerfectScoreUserQueryService.getMyPerfectScoreList(user.getUserNo());
+        List<PerfectScoreResponse> perfectScoreResponse = perfectScoreList.stream().map(PerfectScoreResponse::from).collect(Collectors.toList());
         // 사용자의 ai 데모곡 리스트 가져오기
         List<ComposeSong> composeSongList = apiComposeSongUserQueryService.getMyComposeSongList(user.getUserNo());
+        List<ComposeSongResponse> composeSongResponse = composeSongList.stream().map(ComposeSongResponse::from).collect(Collectors.toList());
 
-        return MyPageResponse.from(user, postList, perfectScoreList, composeSongList);
+        return MyPageResponse.from(user, postResponse, perfectScoreResponse, composeSongResponse);
 
     }
 
