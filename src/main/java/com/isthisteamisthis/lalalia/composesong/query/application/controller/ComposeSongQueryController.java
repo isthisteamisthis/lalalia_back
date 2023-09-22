@@ -25,14 +25,12 @@ public class ComposeSongQueryController {
     private final UserQueryService userQueryService;
     private final ComposeSongQueryService composeSongQueryService;
 
-
     @GetMapping("/ai-songs")
-    public ResponseEntity<ApiResponse> getComposeSongLIst(@RequestHeader Map<String, String> requestHeader) {
+    public ResponseEntity<ApiResponse> getComposeSongList(@RequestHeader Map<String, String> requestHeader) {
         String authorizationHeader = requestHeader.get("authorization");
         Long userId = userQueryService.getUserFromToken(authorizationHeader);
 
         Long userNo = userQueryService.findUserByUserId(userId).getUserNo();
-
 
         List<FindComposeSongListResponse> response = composeSongQueryService.getComposeSongListByUserNoVO(new UserNoVO(userNo));
 

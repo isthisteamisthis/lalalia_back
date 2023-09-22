@@ -3,6 +3,7 @@ package com.isthisteamisthis.lalalia.songdata.query.domain.aggregate.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
 
@@ -24,4 +25,10 @@ public class SongData {
 
     @Column
     private String imageUrl;
+
+    @Column
+    private String mrUrl;
+
+    @Column
+    private String lyricUrl;
 }

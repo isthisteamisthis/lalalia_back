@@ -42,7 +42,7 @@ public class PerfectScoreCommandController {
 
         String fileDirectory = saveWAVFileService.savePerfectScoreFile(perfectScoreWav);
 
-//        perfectScoreInfraService.getScoreResult(perfectScoreWav.getResource());
+        perfectScoreInfraService.getScoreResult(request, perfectScoreWav.getResource());
 
         PerfectScoreCommandResponse response = perfectScoreCommandService.createPerfectScore(userNo, request, 100F, fileDirectory);
 
