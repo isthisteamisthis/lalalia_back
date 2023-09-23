@@ -55,7 +55,7 @@ public class MessageQueryController {
         // 사용자 정보
         UserResponse user = apiUserMessageQueryService.getUser(requestHeader.get("authorization"));
         // 해당 메세지를 조회해서 가져오기
-        GetMessageResponse response = messageQueryService.getMessage(user, messageNo);
+        GetMessageResponse response = messageQueryService.getMessage(messageNo);
 
         return ResponseEntity.ok(ApiResponse.success("메세지 상세 조회 성공", response));
     }

@@ -24,15 +24,14 @@ public class MessageQueryService {
 
     // 하나의 메세지 상세 조회
     @Transactional(readOnly = true)
-    public GetMessageResponse getMessage(UserResponse user, Long messageNo) {
+    public GetMessageResponse getMessage(Long messageNo) {
         // messageNo로 메세지 조회
-        Message message = messageQueryRepository.findByMessageNoAndGetUserNo(messageNo, user.getUserNo())
+        Message message = messageQueryRepository.findByMessageNo(messageNo)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid MessageNo"));
-        // 메세지를 보낸 사용자 조회
-        UserResponse sendUser = apiUserMessageQueryService.getUserByUserNo(message.getSendUserNoVO().getSendUserNo());
-        // 메시지를 보낸 사용자와 받은 사용자의 닉네임
-        String getUserNickname = user.getNickname();
-        String sendUserNickname = sendUser.getNickname();
+
+        // 메세지를 보낸 사용자와 받은 사용자의 닉네임
+        String getUserNickname = apiUserMessageQueryService.getNicknameByUserNo(message.getGetUserNoVO().getGetUserNo());
+        String sendUserNickname = apiUserMessageQueryService.getNicknameByUserNo(message.getSendUserNoVO().getSendUserNo());
 
         return GetMessageResponse.from(message, getUserNickname, sendUserNickname);
 

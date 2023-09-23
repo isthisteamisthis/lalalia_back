@@ -14,8 +14,8 @@ import java.util.Optional;
 public interface MessageQueryRepository extends JpaRepository<Message, Long> {
 
     // 하나의 메세지 조회
-    @Query(value = "SELECT * FROM TBL_MESSAGE M WHERE MESSAGE_NO=?1 AND GET_USER_NO=?2", nativeQuery = true)
-    Optional<Message> findByMessageNoAndGetUserNo(Long messageNo, Long getUserNo);
+    @Query(value = "SELECT * FROM TBL_MESSAGE M WHERE MESSAGE_NO=?1", nativeQuery = true)
+    Optional<Message> findByMessageNo(Long messageNo);
 
     // 사용자가 받은 메세지 리스트 조회 : 날짜 내림차순 (최신순)
     List<Message> findMessagesByGetUserNoVOOrderByDateDesc(GetUserNoVO getUserNoVO);
