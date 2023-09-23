@@ -5,10 +5,7 @@ import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.
 import com.isthisteamisthis.lalalia.perfectscore.command.domain.aggregate.entity.PerfectScore;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.user.command.domain.aggregate.entity.User;
-import com.isthisteamisthis.lalalia.user.query.application.dto.response.ComposeSongResponse;
-import com.isthisteamisthis.lalalia.user.query.application.dto.response.MyPageResponse;
-import com.isthisteamisthis.lalalia.user.query.application.dto.response.PerfectScoreResponse;
-import com.isthisteamisthis.lalalia.user.query.application.dto.response.PostResponse;
+import com.isthisteamisthis.lalalia.user.query.application.dto.response.*;
 import com.isthisteamisthis.lalalia.user.query.domain.repository.UserQueryRepository;
 import com.isthisteamisthis.lalalia.user.query.infrastructure.service.ApiComposeSongUserQueryService;
 import com.isthisteamisthis.lalalia.user.query.infrastructure.service.ApiPerfectScoreUserQueryService;
@@ -49,6 +46,16 @@ public class UserQueryService {
         List<ComposeSongResponse> composeSongResponse = composeSongList.stream().map(ComposeSongResponse::from).collect(Collectors.toList());
 
         return MyPageResponse.from(user, postResponse, perfectScoreResponse, composeSongResponse);
+
+    }
+
+    @Transactional(readOnly = true)
+    public UserResponse findUserByUserNo(Long userNo) {
+
+        User user = userQueryRepository.findByUserNo(userNo)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));
+
+        return UserResponse.from(user);
 
     }
 
