@@ -18,13 +18,14 @@ public class GetPostResponse {
     private final String title;
     private final String content;
     private final String imgFile;
+    private final String aiSongFile;
     private final Long userNo;
     private final Long composeSongNo;
     private final Long perfectScoreNo;
     private final boolean isMe;
     private final boolean like;
 
-    public static GetPostResponse from(Post post, boolean isMe, boolean like) {
+    public static GetPostResponse from(Post post, boolean isMe, boolean like, String aiSongFile) {
         return new GetPostResponse(
                 post.getPostNo(),
                 post.getDate(),
@@ -32,6 +33,7 @@ public class GetPostResponse {
                 post.getTitle() != null ? post.getTitle() : null,
                 post.getContent() != null ? post.getContent() : null,
                 post.getImgFile(),
+                aiSongFile,
                 post.getUserNoVO().getUserNo(),
                 post.getComposeSongVO() != null ? post.getComposeSongVO().getComposeSongNo() : null,
                 post.getPerfectScoreVO() != null ? post.getPerfectScoreVO().getPerfectScoreNo() : null,

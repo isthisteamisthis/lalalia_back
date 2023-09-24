@@ -1,5 +1,7 @@
 package com.isthisteamisthis.lalalia.post.query.application.service;
 
+import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.ComposeSong;
+import com.isthisteamisthis.lalalia.composesong.query.domain.repository.ComposeSongQueryRepository;
 import com.isthisteamisthis.lalalia.post.command.application.dto.response.UserResponse;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.UserNoVO;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +27,7 @@ public class PostQueryService {
     private final PostQueryRepository postQueryRepository;
     private final ApiLikePostQueryService apiLikePostQueryService;
     private final ApiUserPostQueryService apiUserPostQueryService;
+    private final ComposeSongQueryRepository composeSongQueryRepository;
 
     // 사용자의 게시물 전체 조회
     @Transactional(readOnly = true)
@@ -73,7 +77,10 @@ public class PostQueryService {
         // 사용자가 게시물에 좋아요를 했는지 여부
         boolean like = apiLikePostQueryService.getLike(user.getUserNo(), postNo);
 
-        return GetMyPagePostResponse.from(findPost, like);
+        Optional<ComposeSong> optionalComposeSong = composeSongQueryRepository.findByComposeSongNo(findPost.getComposeSongVO().getComposeSongNo());
+        ComposeSong composeSong = optionalComposeSong.get();
+
+        return GetMyPagePostResponse.from(findPost, like, composeSong.getAiSongFile());
     }
 
     // community : 하나의 게시물 상세 조회
@@ -87,7 +94,10 @@ public class PostQueryService {
         // 사용자가 게시물에 좋아요를 했는지 여부
         boolean like = apiLikePostQueryService.getLike(user.getUserNo(), postNo);
 
-        return GetPostResponse.from(findPost, isMe, like);
+        Optional<ComposeSong> optionalComposeSong = composeSongQueryRepository.findByComposeSongNo(findPost.getComposeSongVO().getComposeSongNo());
+        ComposeSong composeSong = optionalComposeSong.get();
+
+        return GetPostResponse.from(findPost, isMe, like, composeSong.getAiSongFile());
 
     }
 }
