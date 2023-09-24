@@ -1,24 +1,76 @@
 INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
-VALUES (1, 3016936010, '가수가 되고 싶은 학생입니다!', 'numerical43', 'SINGER', 100, 10, 0, 'numer', '4옥타브', '라', '1옥타브', '시');
+VALUES (1, 3016936010, '안녕하세요☺️ 가수가 되고 싶은 학생입니다!', 'numerical43', 'SINGER', 100, 10, 56, '라구댕구', '4옥타브', '라', '1옥타브', '시');
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
+VALUES (2, 3026079672, '나는 오늘도... 노래를 부른다...🎤👨‍🎤', 'drk4682', 'SINGER', 100, 50, 89, '요정인', '6옥타브', '파', '2옥타브', '도');
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
+VALUES (3, 3016936011, '노래가 좋아~ 작곡이 좋아~', 'numerical43', 'SINGER', 100, 10, 56, '수이스크립트', '4옥타브', '라', '1옥타브', '시');
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
+VALUES (4, 3026079672, '나는 오늘도... 노래를 부른다...🎤👨‍🎤', 'drk4682', 'SINGER', 100, 50, 89, '천재만제', '6옥타브', '파', '2옥타브', '도');
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
+VALUES (5, 3016936013, '노래가 좋아~ 작곡이 좋아~', 'numerical43', 'SINGER', 100, 10, 56, '수박이삼촌', '4옥타브', '라', '1옥타브', '시');
+INSERT INTO TBL_USER(user_no, user_id, user_intro, email, category, max_frequency, min_frequency, avg_score, nickname, max_octave, max_note, min_octave, min_note)
+VALUES (6, 3026079674, '나는 오늘도... 노래를 부른다...🎤👨‍🎤', 'drk4682', 'SINGER', 100, 50, 89, '효댕', '6옥타브', '파', '2옥타브', '도');
 
-INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no)
-VALUES (1, 1, 'contetetnet', '2020-03-26', 1, null, 'titlle', 1);
-INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no)
-VALUES (2, null, 'contetedfdtnet', '2020-03-26', 3, 2, 'titladsfale', 1);
-INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no)
-VALUES (3, 1, 'contetetadsfadfnet', '2020-03-26', 2, null, 'titasdfadsfasdflle', 1);
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (1, 1, 'C', '2023-09-23', 4, null, '라구댕구:모날모순', 1, 'https://image.bugsm.co.kr/album/images/200/201547/20154722.jpg?version=20230601001519.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (2, 2, 'B', '2023-09-25', 1, null, '나에게 그대만이!!!!', 2, 'https://image.bugsm.co.kr/album/images/200/40876/4087602.jpg?version=20230612063347.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (3, 3, 'A', '2023-09-25', 0, null, '내가 아니라도', 1,'https://image.bugsm.co.kr/album/images/200/40732/4073229.jpg?version=20220325180012.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (4, 1, 'C', '2023-09-22', 0, null, '너의 모든순간', 3, 'https://image.bugsm.co.kr/album/images/200/4132/413209.jpg?version=20210204110908.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (5, 2, 'B', '2023-09-21', 0, null, '사건으지평선', 2, 'https://image.bugsm.co.kr/album/images/200/40734/4073469.jpg?version=20230110005119.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (6, 3, 'A', '2023-08-25', 0, null, '지평선티비', 1,'https://image.bugsm.co.kr/album/images/200/40734/4073469.jpg?version=20230110005119.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (7, 1, 'C', '2023-09-25', 0, null, '사랑의 바보', 1, 'https://image.bugsm.co.kr/album/images/200/352/35269.jpg?version=20230701040843.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (8, 2, 'B', '2023-07-01', 0, null, '그댄만이그대만이', 2, 'https://image.bugsm.co.kr/album/images/200/40876/4087602.jpg?version=20230612063347.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (9, 3, 'A', '2023-06-25', 0, null, '내가 아니라도', 3,'https://image.bugsm.co.kr/album/images/200/40732/4073229.jpg?version=20220325180012.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (10, 1, 'C', '2023-09-23', 0, null, '모래알갱이', 3, 'https://image.bugsm.co.kr/album/images/200/205700/20570088.jpg?version=20230615005409.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (11, 2, 'B', '2023-09-25', 0, null, '잘지내자 우리', 3, 'https://image.bugsm.co.kr/album/images/200/40884/4088497.jpg?version=20230707064247.0');
+INSERT INTO TBL_POST(post_no, compose_song_no, content, date, like_cnt, perfect_score_no, title, user_no, img_file)
+VALUES (12, 3, 'A', '2023-09-25', 0, null, '우리들의블루스', 3,'https://image.bugsm.co.kr/album/images/200/204625/20462525.jpg?version=20230706021629.0');
 
+INSERT INTO TBL_LIKE(post_no, user_no)
+VALUES (1, 2);
 INSERT INTO TBL_LIKE(post_no, user_no)
 VALUES (1, 1);
 INSERT INTO TBL_LIKE(post_no, user_no)
 VALUES (2, 1);
+INSERT INTO TBL_LIKE(post_no, user_no)
+VALUES (1, 3);
+INSERT INTO TBL_LIKE(post_no, user_no)
+VALUES (1, 4);
 
-INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
-VALUES (1, 'test1', 1);
-INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
-VALUES (2, 'test2', 1);
-INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no)
-VALUES (3, 'test3', 1);
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no, ai_song_file, img_file)
+VALUES (1, '라구댕구:모날모순', 1, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://image.bugsm.co.kr/album/images/200/201547/20154722.jpg?version=20230601001519.0');
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no, ai_song_file, img_file)
+VALUES (2, '나에게 그대만이!!!!', 2, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://image.bugsm.co.kr/album/images/200/40876/4087602.jpg?version=20230612063347.0');
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no, ai_song_file, img_file)
+VALUES (3, '내가 아니라도', 1, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3','https://image.bugsm.co.kr/album/images/200/40732/4073229.jpg?version=20220325180012.0');
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no, ai_song_file, img_file)
+VALUES (4, '윤하좋아요', 1, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'https://image.bugsm.co.kr/album/images/200/40734/4073469.jpg?version=20230110005119.0');
+INSERT INTO TBL_COMPOSE_SONG(compose_song_no, title, user_no, ai_song_file, img_file)
+VALUES (5, '취중고백하지마', 1, 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3','https://image.bugsm.co.kr/album/images/200/40691/4069154.jpg?version=20230622003642.0');
+
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (5, '안녕하세요!! 목소리가 정말 좋으시네요ㅎㅎ 앞으로도 많이 올려주세요!!', '2023-09-24 22:37:44.176000', 1, 2);
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (6, '좋은 말씀해주셔서 정말 감사합니다. 저에게 큰 힘이 됩니다!', '2023-09-25 10:37:44.176000', 2, 1);
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (4, '작곡에는 관심없으신가요?', '2023-09-02 23:57:44.176000', 2, 1);
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (3, '😽😽😽!! 뽀둥이 최고 ', '2023-08-12 14:21:44.176000', 1, 6);
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (2, '🐶🐶🐶 강아지가 세상을 구한다 ', '2023-08-10 11:09:44.176000', 1, 5);
+INSERT INTO tbl_message(MESSAGE_NO, CONTENT, DATE, GET_USER_NO, SEND_USER_NO)
+VALUES (1, '이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.영국에서 HGXWCH이라는 사람은 1930년에 이 편지를 받았습니다. 그는 비서에게 복사해서 보내라고 했습니다.', '2023-07-22 09:00:44.176000', 1, 4);
+
 
 INSERT INTO TBL_PERFECT_SCORE(perfect_score_no, song_name, user_no, score)
 VALUES (1, 'test1', 1, 100);
