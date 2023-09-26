@@ -69,8 +69,11 @@
 <br>
 
 ## Client - Flask 서버 통신
+<div align="center">
 
 <img width="580" alt="image" src="https://github.com/isthisteamisthis/lalalia_back/assets/88484476/d9d9d7b1-7c64-4503-a126-801073a6c3ca">
+
+</div>
 
 <br>
 
