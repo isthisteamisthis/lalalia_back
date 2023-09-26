@@ -41,6 +41,7 @@
 
 
 ## 👋 백엔드 개발 팀원 소개
+<div align="center">
 <table>
   <tr>
     <td align="center"><a href="https://github.com/numerical43"><img src="https://avatars.githubusercontent.com/numerical43" width="150px;" alt="">
@@ -59,6 +60,7 @@
     <td align="center"><strong>클라이언트, flask 서버 통신</strong></td>
   </tr>
 </table>
+</div>
 <br>
 <br>
 
