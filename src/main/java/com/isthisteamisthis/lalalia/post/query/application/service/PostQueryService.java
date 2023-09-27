@@ -1,15 +1,15 @@
 package com.isthisteamisthis.lalalia.post.query.application.service;
 
-import com.isthisteamisthis.lalalia.composesong.command.domain.aggregate.entity.ComposeSong;
-import com.isthisteamisthis.lalalia.composesong.query.domain.repository.ComposeSongQueryRepository;
 import com.isthisteamisthis.lalalia.post.command.application.dto.response.UserResponse;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.entity.Post;
 import com.isthisteamisthis.lalalia.post.command.domain.aggregate.vo.UserNoVO;
+import com.isthisteamisthis.lalalia.post.query.application.dto.ComposeSongDTO;
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetAllPostsResponse;
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetMyPagePostResponse;
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetPostResponse;
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetUserPostResponse;
 import com.isthisteamisthis.lalalia.post.query.domain.repository.PostQueryRepository;
+import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiComposeSongPostQueryService;
 import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiLikePostQueryService;
 import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiUserPostQueryService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +26,7 @@ public class PostQueryService {
     private final PostQueryRepository postQueryRepository;
     private final ApiLikePostQueryService apiLikePostQueryService;
     private final ApiUserPostQueryService apiUserPostQueryService;
-    private final ComposeSongQueryRepository composeSongQueryRepository;
+    private final ApiComposeSongPostQueryService composeSongPostQueryService;
 
     // 사용자의 게시물 전체 조회
     @Transactional(readOnly = true)
@@ -77,10 +76,11 @@ public class PostQueryService {
         // 사용자가 게시물에 좋아요를 했는지 여부
         boolean like = apiLikePostQueryService.getLike(user.getUserNo(), postNo);
 
-        Optional<ComposeSong> optionalComposeSong = composeSongQueryRepository.findByComposeSongNo(findPost.getComposeSongVO().getComposeSongNo());
-        ComposeSong composeSong = optionalComposeSong.get();
+        // composeSongNo로 composeSong 조회 -> AiSongFile 가져오기
+        ComposeSongDTO composeSongDTO = composeSongPostQueryService.findComposeSong(findPost.getComposeSongVO().getComposeSongNo());
 
-        return GetMyPagePostResponse.from(findPost, like, composeSong.getAiSongFile());
+        return GetMyPagePostResponse.from(findPost, like, composeSongDTO.getAiSongFile());
+
     }
 
     // community : 하나의 게시물 상세 조회
@@ -94,10 +94,10 @@ public class PostQueryService {
         // 사용자가 게시물에 좋아요를 했는지 여부
         boolean like = apiLikePostQueryService.getLike(user.getUserNo(), postNo);
 
-        Optional<ComposeSong> optionalComposeSong = composeSongQueryRepository.findByComposeSongNo(findPost.getComposeSongVO().getComposeSongNo());
-        ComposeSong composeSong = optionalComposeSong.get();
+        // composeSongNo로 composeSong 조회 -> AiSongFile 가져오기
+        ComposeSongDTO composeSongDTO = composeSongPostQueryService.findComposeSong(findPost.getComposeSongVO().getComposeSongNo());
 
-        return GetPostResponse.from(findPost, isMe, like, composeSong.getAiSongFile());
+        return GetPostResponse.from(findPost, isMe, like, composeSongDTO.getAiSongFile());
 
     }
 }
