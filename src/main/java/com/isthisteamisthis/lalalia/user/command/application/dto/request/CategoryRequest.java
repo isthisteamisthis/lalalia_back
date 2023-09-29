@@ -9,7 +9,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class CategoryRequest implements Serializable {
-
+    // 작곡가 / 가수 선택 request
     @JsonProperty("category")
     private final String category;
 

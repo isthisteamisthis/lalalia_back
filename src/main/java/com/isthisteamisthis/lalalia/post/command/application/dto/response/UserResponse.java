@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class UserResponse {
-
+    // user 정보를 담는 response
     private final Long userNo;
     private final Long userId;
     private final String nickname;

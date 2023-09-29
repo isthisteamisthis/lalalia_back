@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class DeleteLikeResponse {
-
+    // like 삭제에 대한 응답
     private final Long postNo;
     private final Long userNo;
 

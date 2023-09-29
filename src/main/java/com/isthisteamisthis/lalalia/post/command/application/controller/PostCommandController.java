@@ -7,6 +7,7 @@ import com.isthisteamisthis.lalalia.post.command.application.dto.response.Delete
 import com.isthisteamisthis.lalalia.post.command.application.dto.response.UserResponse;
 import com.isthisteamisthis.lalalia.post.command.application.service.PostCommandService;
 import com.isthisteamisthis.lalalia.post.command.infrastructure.service.ApiUserPostCommandService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ public class PostCommandController {
     private final ApiUserPostCommandService apiUserPostCommandService;
 
     // 게시물 등록
+    @Operation(summary = "게시물 등록")
     @PostMapping("/posts")
     public ResponseEntity<ApiResponse> createPost(@RequestHeader Map<String, String> requestHeader,
                                                   @RequestBody CreatePostRequest createPostRequest) {
@@ -37,6 +39,7 @@ public class PostCommandController {
     }
 
     // 게시물 삭제
+    @Operation(summary = "게시물 삭제")
     @DeleteMapping("/posts/{postNo}")
     public ResponseEntity<ApiResponse> deleteMyPost(@RequestHeader Map<String, String> requestHeader,
                                                     @PathVariable("postNo") Long postNo ) {

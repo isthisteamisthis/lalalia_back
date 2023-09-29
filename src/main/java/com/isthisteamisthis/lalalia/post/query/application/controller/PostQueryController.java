@@ -8,6 +8,7 @@ import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetPostR
 import com.isthisteamisthis.lalalia.post.query.application.dto.response.GetUserPostResponse;
 import com.isthisteamisthis.lalalia.post.query.application.service.PostQueryService;
 import com.isthisteamisthis.lalalia.post.query.infrastructure.service.ApiUserPostQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ public class PostQueryController {
     private final ApiUserPostQueryService apiUserPostQueryService;
 
     // 한 유저의 게시물 전체 조회
+    @Operation(summary = "한 유저의 게시물 전체 조회")
     @GetMapping("my-page/posts")
     public ResponseEntity<ApiResponse> getPostsByUserNo(@RequestHeader Map<String, String> requestHeader) {
 
@@ -35,6 +37,7 @@ public class PostQueryController {
     }
 
     // 게시물 전체 조회 : 좋아요 정렬
+    @Operation(summary = "게시물 전체 조회 : 좋아요 정렬")
     @GetMapping("/posts")
     public ResponseEntity<ApiResponse> getAllPosts(@RequestHeader Map<String, String> requestHeader) {
 
@@ -45,6 +48,7 @@ public class PostQueryController {
     }
 
     // 하나의 내 게시물 상세 조회
+    @Operation(summary = "하나의 내 게시물 상세 조회")
     @GetMapping("my-page/posts/{postNo}")
     public ResponseEntity<ApiResponse> getMyPagePost(@RequestHeader Map<String, String> requestHeader, @PathVariable("postNo") Long postNo) {
 
@@ -58,6 +62,7 @@ public class PostQueryController {
 
 
     // 하나의 게시물 상세 조회
+    @Operation(summary = "하나의 게시물 상세 조회")
     @GetMapping("posts/{postNo}")
     public ResponseEntity<ApiResponse> getPost(@RequestHeader Map<String, String> requestHeader,
                                                @PathVariable("postNo") Long postNo) {

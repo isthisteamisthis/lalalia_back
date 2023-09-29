@@ -64,6 +64,7 @@ public class User {
     public void addMinVoiceRange(MinRangeVO minRange) {
         this.minRange = minRange;
     }
+
     public void addRecommendSongList(String recommendSongList) {
         this.recommendSongList = recommendSongList;
     }
@@ -82,9 +83,11 @@ public class User {
         this.nickname = nickname;
     }
 
+    // 이메일 수정
     public void updateEmail(String email) {
         this.email = email;
     }
+
     public void updateAvgScore(Float score) {
         this.avgScore = (this.avgScore + score) / 2;
     }

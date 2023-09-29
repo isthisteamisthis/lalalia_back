@@ -12,6 +12,7 @@ public class ApiPostCommandService {
 
     private final PostCommandRepository postCommandRepository;
 
+    // postNo으로 post 조회
     @Transactional
     public Post getPostByPostNo(Long postNo) {
 

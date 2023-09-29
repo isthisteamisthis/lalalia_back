@@ -14,6 +14,7 @@ public class ApiUserLikeCommandService {
     private final UserQueryService userQueryService;
     private final UserQueryRepository userQueryRepository;
 
+    // jwt 토큰으로 유저 조회
     public UserResponse getUser(String authorizationHeader) {
 
         Long userId = userQueryService.getUserFromToken(authorizationHeader);

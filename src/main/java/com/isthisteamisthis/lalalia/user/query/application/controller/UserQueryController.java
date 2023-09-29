@@ -4,6 +4,7 @@ import com.isthisteamisthis.lalalia.common.ApiResponse;
 import com.isthisteamisthis.lalalia.user.query.application.dto.response.MyPageResponse;
 import com.isthisteamisthis.lalalia.user.query.application.dto.response.UserResponse;
 import com.isthisteamisthis.lalalia.user.query.application.service.UserQueryService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class UserQueryController {
     private final UserQueryService userQueryService;
 
     // My Page 조회
+    @Operation(summary = "My-Page 조회")
     @GetMapping("/my-page")
     public ResponseEntity<ApiResponse> getMyPage(@RequestHeader Map<String, String> requestHeader) {
         // 헤더에 있는 jwtToken 추출
@@ -34,6 +36,8 @@ public class UserQueryController {
         return ResponseEntity.ok(ApiResponse.success("My Page 조회 성공", myPageResponse));
     }
 
+    // 다른 사용자의 My-Page 조회
+    @Operation(summary = "다른 사용자의 My-Page 조회")
     @GetMapping("/my-page/{userNo}")
     public ResponseEntity<ApiResponse> getMyPage(@RequestHeader Map<String, String> requestHeader, @PathVariable("userNo") Long userNo) {
         // 헤더에 있는 jwtToken 추출

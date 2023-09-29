@@ -6,6 +6,7 @@ import com.isthisteamisthis.lalalia.like.command.application.dto.response.Delete
 import com.isthisteamisthis.lalalia.like.command.application.service.LikeCommandService;
 import com.isthisteamisthis.lalalia.like.command.infrastructure.service.ApiUserLikeCommandService;
 import com.isthisteamisthis.lalalia.user.query.application.dto.response.UserResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ public class LikeCommandController {
     private final ApiUserLikeCommandService apiUserLikeCommandService;
 
     // 좋아요 생성
+    @Operation(summary = "좋아요 생성")
     @PostMapping("/posts/{postNo}/like")
     public ResponseEntity<ApiResponse> createLike(@RequestHeader Map<String, String> requestHeader,
                                                   @PathVariable("postNo") Long postNo) {
@@ -36,6 +38,7 @@ public class LikeCommandController {
     }
 
     // 좋아요 삭제
+    @Operation(summary = "좋아요 삭제")
     @DeleteMapping("/posts/{postNo}/like")
     public ResponseEntity<ApiResponse> deleteLike(@RequestHeader Map<String, String> requestHeader,
                                                          @PathVariable("postNo") Long postNo) {

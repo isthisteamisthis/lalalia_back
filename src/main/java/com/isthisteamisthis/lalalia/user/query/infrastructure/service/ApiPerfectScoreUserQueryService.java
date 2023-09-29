@@ -15,7 +15,8 @@ public class ApiPerfectScoreUserQueryService {
 
     private final ApiPerfectScoreQueryRepository apiPerfectScoreQueryRepository;
 
-    @Transactional
+    // userNo로 perfectScore List 조회
+    @Transactional(readOnly = true)
     public List<PerfectScore> getMyPerfectScoreList(Long userNo) {
 
         // userId로 userNoVO 생성

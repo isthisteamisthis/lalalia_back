@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ApiPerfectScoreQueryRepository extends JpaRepository<PerfectScore, Long> {
 
-    // 내가 부른 곡 전체 리스트 조회
+    // userNoVO로 내가 부른 곡 전체 리스트 조회
     List<PerfectScore> findPerfectScoresByUserNoVO(UserNoVO userNoVO);
 
 }

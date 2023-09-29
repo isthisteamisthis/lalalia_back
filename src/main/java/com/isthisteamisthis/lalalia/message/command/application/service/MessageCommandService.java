@@ -23,10 +23,10 @@ public class MessageCommandService {
     // 메세지 보내기
     @Transactional
     public SendMessageResponse sendMessage(UserResponse sendUser, UserResponse getUser, SendMessageRequest request) {
-
+        // 수신자, 송신자 VO 생성
         SendUserNoVO sendUserNoVO = new SendUserNoVO(sendUser.getUserNo());
         GetUserNoVO getUserNoVO = new GetUserNoVO(getUser.getUserNo());
-
+        // 메세지 저장
         Message message = Message.builder()
                 .content(request.getContent())
                 .date(new Date())
@@ -40,16 +40,17 @@ public class MessageCommandService {
 
     }
 
+    // 메세지 삭제하기
     @Transactional
     public DeleteMessageResponse deleteMessage(UserResponse user, Long messageNo) {
-
+        // messageNo으로 메세지 조회
         Message message = messageCommandRepository.findByMessageNo(messageNo)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid MessageNo"));
-
+        // 해당 메세지를 작성한 본인이 아닐 경우 예외처리
         if (!message.getGetUserNoVO().getGetUserNo().equals(user.getUserNo())) {
             throw new IllegalArgumentException("");
         }
-
+        // 본인일 경우 메세지 삭제
         messageCommandRepository.delete(message);
 
         return new DeleteMessageResponse(messageNo);

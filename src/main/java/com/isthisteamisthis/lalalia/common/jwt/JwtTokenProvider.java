@@ -23,7 +23,7 @@ public class JwtTokenProvider {
         Date expirationDate = new Date(now.getTime() + jwtValidity * 1000);
 
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(userId)     // userId 설정
                 .setIssuedAt(now)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)

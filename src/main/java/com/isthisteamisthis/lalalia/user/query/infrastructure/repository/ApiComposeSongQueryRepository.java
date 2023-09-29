@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ApiComposeSongQueryRepository extends JpaRepository<ComposeSong, Long> {
 
+    // userNoVO로 ComposeSong 조회
     List<ComposeSong> findComposeSongsByUserNoVO(UserNoVO userNoVO);
 
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class CreatePostResponse {
-
+    // post 생성에 대한 응답
     private final Long postNo;
     private final Date date;
     private final int likeCnt;

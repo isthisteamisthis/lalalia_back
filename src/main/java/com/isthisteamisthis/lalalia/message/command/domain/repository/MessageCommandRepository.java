@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface MessageCommandRepository extends JpaRepository<Message, Long> {
-
+    // messageNo으로 message 조회
     Optional<Message> findByMessageNo(Long messageNo);
 
 }

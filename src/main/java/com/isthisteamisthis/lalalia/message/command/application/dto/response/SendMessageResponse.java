@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class SendMessageResponse {
-
+    // 메세지 생성에 대한 응답
     private final Long getUserNo;
     private final Long sendUserNo;
 

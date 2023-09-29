@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class DeletePostResponse {
-
+    // post 삭제에 대한 응답
     private final Long postNo;
     private final Integer deleteCnt;
 

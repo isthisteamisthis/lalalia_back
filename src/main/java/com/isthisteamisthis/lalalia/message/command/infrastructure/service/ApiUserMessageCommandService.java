@@ -15,6 +15,7 @@ public class ApiUserMessageCommandService {
     private final UserQueryService userQueryService;
     private final UserQueryRepository userQueryRepository;
 
+    // jwt 토큰으로 유저 조회
     public UserResponse getUser(String authorizationHeader) {
 
         Long userId = userQueryService.getUserFromToken(authorizationHeader);
@@ -25,6 +26,7 @@ public class ApiUserMessageCommandService {
         return UserResponse.from(user);
     }
 
+    // userNo으로 유저 조회
     public UserResponse getUserByUserNo(Long userNo) {
 
         User user = userQueryRepository.findByUserNo(userNo)

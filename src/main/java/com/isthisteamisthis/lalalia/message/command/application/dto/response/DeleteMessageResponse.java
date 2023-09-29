@@ -8,5 +8,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class DeleteMessageResponse {
+    // 메세지 삭제에 대한 응답
     private final Long messageNo;
 }

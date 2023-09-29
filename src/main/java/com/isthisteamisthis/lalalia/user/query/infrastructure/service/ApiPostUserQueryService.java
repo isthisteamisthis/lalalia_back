@@ -16,7 +16,8 @@ public class ApiPostUserQueryService {
 
     private final PostQueryRepository postQueryRepository;
 
-    @Transactional
+    // userNo로 post List 조회
+    @Transactional(readOnly = true)
     public List<Post> getMyPostList(Long userNo) {
 
         // UserNo로 UserNoVO 생성

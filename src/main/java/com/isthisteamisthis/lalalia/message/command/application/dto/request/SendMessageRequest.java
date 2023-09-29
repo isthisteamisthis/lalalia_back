@@ -10,7 +10,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class SendMessageRequest {
-
+    // 메세지 생성 request
     private final String content;
 
 }

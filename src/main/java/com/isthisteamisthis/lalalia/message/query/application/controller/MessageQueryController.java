@@ -6,6 +6,7 @@ import com.isthisteamisthis.lalalia.message.query.application.dto.response.GetMe
 import com.isthisteamisthis.lalalia.message.query.application.service.MessageQueryService;
 import com.isthisteamisthis.lalalia.message.query.infrastructure.service.ApiUserMessageQueryService;
 import com.isthisteamisthis.lalalia.user.query.application.dto.response.UserResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class MessageQueryController {
     private final ApiUserMessageQueryService apiUserMessageQueryService;
 
     // 사용자가 받은 메세지 리스트 조회 : 날짜 내림차순(최신순)
+    @Operation(summary = "사용자가 받은 메세지 리스트 조회 : 날짜 내림차순(최신순)")
     @GetMapping("/messages/received")
     public ResponseEntity<ApiResponse> getAllReceivedMessage(@RequestHeader Map<String, String> requestHeader) {
         // 사용자 정보
@@ -36,6 +38,7 @@ public class MessageQueryController {
     }
 
     // 사용자가 보낸 메세지 리스트 조회 : 날짜 내림차순(최신순)
+    @Operation(summary = "사용자가 보낸 메세지 리스트 조회 : 날짜 내림차순(최신순)")
     @GetMapping("/messages/sent")
     public ResponseEntity<ApiResponse> getAllSentMessage(@RequestHeader Map<String, String> requestHeader) {
         // 사용자 정보
@@ -48,6 +51,7 @@ public class MessageQueryController {
     }
 
     // 사용자가 받은 메세지 상세 조회
+    @Operation(summary = "사용자가 받은 메세지 상세 조회")
     @GetMapping("/messages/{messageNo}")
     public ResponseEntity<ApiResponse> getMessage(@RequestHeader Map<String, String> requestHeader,
                                                   @PathVariable("messageNo") Long messageNo) {

@@ -15,7 +15,8 @@ public class ApiComposeSongUserQueryService {
 
     private final ApiComposeSongQueryRepository apiComposeSongQueryRepository;
 
-    @Transactional
+    // userNO로 composeSong List 조회
+    @Transactional(readOnly = true)
     public List<ComposeSong> getMyComposeSongList(Long userNo) {
 
         // userId로 userNoVO 생성

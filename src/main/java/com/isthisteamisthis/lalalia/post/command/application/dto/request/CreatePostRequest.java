@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class CreatePostRequest {
-
+    // post 생성 request
     @JsonProperty("compose_song_no")
     private final Long composeSongNo;
 

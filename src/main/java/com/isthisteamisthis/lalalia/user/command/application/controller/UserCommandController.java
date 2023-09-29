@@ -35,6 +35,7 @@ public class UserCommandController {
     private final KakaoAuthService kakaoAuthService;
 
     // 카카오로 로그인
+    @Operation(summary = "카카오로 로그인")
     @PostMapping("/login-kakao")
     public ResponseEntity<?> loginWithKakao(@RequestBody Map<String, String> requestBody) {
 
@@ -70,6 +71,7 @@ public class UserCommandController {
     }
 
     // 앱 진입 시 jwt Token 유효성 검사
+    @Operation(summary = "앱 진입 시 jwt Token 유효성 검사")
     @PostMapping("/login")
     public ResponseEntity<?> loginInApp(@RequestHeader Map<String, String> requestHeader) {
 
@@ -86,6 +88,7 @@ public class UserCommandController {
     }
 
     // 작곡가, 가수 선택
+    @Operation(summary = "작곡가, 가수 선택")
     @PostMapping("/category")
     public ResponseEntity<ApiResponse> selectCategory(@RequestHeader Map<String, String> requestHeader, @RequestBody CategoryRequest categoryRequest) {
         // 헤더에서 jwt 토큰 추출

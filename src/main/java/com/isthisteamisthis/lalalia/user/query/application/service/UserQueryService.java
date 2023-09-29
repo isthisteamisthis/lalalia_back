@@ -49,6 +49,7 @@ public class UserQueryService {
 
     }
 
+    // userNo로 User 가져오기
     @Transactional(readOnly = true)
     public UserResponse findUserByUserNo(Long userNo) {
 

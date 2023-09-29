@@ -12,6 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMapAdapter;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,7 @@ public class KakaoAuthService {
     private final RestTemplate restTemplate;
     private final UserCommandRepository userCommandRepository;
 
+    @Transactional
     public String loginWithKakao(String code) {
         // 카카오로부터 받은 인가 코드로 토큰 요청
         String tokenUrl = "https://kauth.kakao.com/oauth/token?" +
@@ -59,6 +61,7 @@ public class KakaoAuthService {
     }
 
     // 액세스 토큰으로 user profile 가져오기
+    @Transactional
     public KakaoProfileResponse getKakaoProfile(String kakaoAccessToken){
         // user 정보를 가져오는 kakao api url
         String url = "https://kapi.kakao.com/v2/user/me";
@@ -80,6 +83,7 @@ public class KakaoAuthService {
     }
 
     // 특정 시용자 조회
+    @Transactional
     public User findByUserId(Long userId) {
 
         Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
