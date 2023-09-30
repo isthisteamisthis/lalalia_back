@@ -14,11 +14,10 @@ public class ApiUserPostCommandService {
     private final UserQueryService userQueryService;
     private final UserQueryRepository userQueryRepository;
 
-    //jwt 토큰으로 유저 조회
+    //jwt 토큰으로 사용자 조회
     public UserResponse getUser(String authorizationHeader) {
 
         Long userId = userQueryService.getUserFromToken(authorizationHeader);
-        System.out.println("userId = " + userId);
 
         User user = userQueryRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));

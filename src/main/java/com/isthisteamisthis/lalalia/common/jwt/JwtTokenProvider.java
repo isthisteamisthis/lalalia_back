@@ -30,6 +30,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    // 토큰에서 userId 추출
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
@@ -39,6 +40,7 @@ public class JwtTokenProvider {
         return Long.parseLong(claims.getSubject());
     }
 
+    // 토큰의 유효성 검증
     public boolean validateToken(String jwtToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret.getBytes()).parseClaimsJws(jwtToken);
@@ -49,6 +51,7 @@ public class JwtTokenProvider {
         }
     }
 
+    // 토큰의 만료 여부 확인
     public boolean isTokenExpired(String jwtToken) {
         try {
             Claims claims = Jwts.parser()

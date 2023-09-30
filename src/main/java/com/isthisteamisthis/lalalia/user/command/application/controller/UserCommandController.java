@@ -42,10 +42,10 @@ public class UserCommandController {
         String accessToken = requestBody.get("accessToken");
 
         if (accessToken != null) {
-            // 액세스 토큰으로 카카오에서 해당 유저 정보 가져오기
+            // 액세스 토큰으로 카카오에서 해당 사용자 정보 가져오기
             com.isthisteamisthis.lalalia.user.command.application.dto.response.KakaoProfileResponse kakaoProfileResponse = kakaoAuthService.getKakaoProfile(accessToken);
 
-            // 유저의 Id로 회원으로 등록이 되어있는지 확인
+            // 사용자의 Id로 회원으로 등록이 되어있는지 확인
             User findUser = kakaoAuthService.findByUserId(kakaoProfileResponse.getUserId());
 
             // 회원이 등록되어있다면 토큰 생성해서 반환

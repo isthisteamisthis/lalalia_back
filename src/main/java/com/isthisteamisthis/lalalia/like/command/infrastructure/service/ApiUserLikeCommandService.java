@@ -14,11 +14,12 @@ public class ApiUserLikeCommandService {
     private final UserQueryService userQueryService;
     private final UserQueryRepository userQueryRepository;
 
-    // jwt 토큰으로 유저 조회
+    // jwt 토큰으로 사용자 조회
     public UserResponse getUser(String authorizationHeader) {
 
+        // 토큰에서 userId 추출
         Long userId = userQueryService.getUserFromToken(authorizationHeader);
-
+        // userId로 사용자 조회
         User user = userQueryRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));
 

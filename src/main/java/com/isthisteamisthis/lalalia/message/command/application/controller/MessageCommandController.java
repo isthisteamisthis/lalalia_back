@@ -44,7 +44,7 @@ public class MessageCommandController {
     public ResponseEntity<ApiResponse> deleteMessage(@RequestHeader Map<String, String> requestHeader,
                                                      @PathVariable("messageNo") Long messageNo) {
 
-        // 유저 정보 조회
+        // 사용자 정보 조회
         UserResponse user = apiUserMessageCommandService.getUser(requestHeader.get("authorization"));
         // 메세지 삭제 : 본인이 아닐 경우 예외처리
         DeleteMessageResponse response = messageCommandService.deleteMessage(user, messageNo);

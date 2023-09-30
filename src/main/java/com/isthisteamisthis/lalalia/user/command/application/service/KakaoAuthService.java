@@ -72,7 +72,7 @@ public class KakaoAuthService {
         headers.set("Authorization", "Bearer " + kakaoAccessToken);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        // 필요한 유저 정보 가져오기
+        // 필요한 사용자 정보 가져오기
         MultiValueMapAdapter<String, String> body = new LinkedMultiValueMap<>();
         body.add("property_keys", "[\"id\", \"kakao_account.email\", \"properties.nickname\"]");
 

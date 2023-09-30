@@ -17,15 +17,14 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserCommandService {
 
     private final UserCommandRepository userCommandRepository;
-
     private final JwtTokenProvider jwtTokenProvider;
-    private static final String SPLIT_CHAR = ",";
 
+    private static final String SPLIT_CHAR = ",";
 
     // 회원 가입
     @Transactional
@@ -58,7 +57,6 @@ public class UserCommandService {
     // JWT 토큰 유효성 확인
     @Transactional
     public boolean checkToken(String authorizationHeader) {
-
         // 헤더로 넘어온 정보에서 jwt 토큰 부분 추출
         String jwtToken = extractTokenFromHeader(authorizationHeader);
 
@@ -69,7 +67,7 @@ public class UserCommandService {
     // 헤더의 토큰으로 userId 가져오기
     @Transactional
     public Long getUserIdFromToken(String authorizationHeader) {
-
+        // 헤더로 넘어온 정보에서 jwt 토큰 부분 추출
         String jwtToken = extractTokenFromHeader(authorizationHeader);
 
         return jwtTokenProvider.getUserIdFromToken(jwtToken);
@@ -79,11 +77,11 @@ public class UserCommandService {
     // 헤더의 토큰으로 user 가져오기
     @Transactional
     public User getUserFromToken(String authorizationHeader) {
-
+        // 헤더로 넘어온 정보에서 jwt 토큰 부분 추출
         String jwtToken = extractTokenFromHeader(authorizationHeader);
-
+        // 토큰에서 userId 추출
         Long userId = jwtTokenProvider.getUserIdFromToken(jwtToken);
-
+        // userId로 사용자 조회
         Optional<User> optionalUser = userCommandRepository.findByUserId(userId);
 
         if (optionalUser.isPresent()) {

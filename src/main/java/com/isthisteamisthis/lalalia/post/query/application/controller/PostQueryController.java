@@ -23,8 +23,8 @@ public class PostQueryController {
     private final PostQueryService postQueryService;
     private final ApiUserPostQueryService apiUserPostQueryService;
 
-    // 한 유저의 게시물 전체 조회
-    @Operation(summary = "한 유저의 게시물 전체 조회")
+    // 한 사용자의 게시물 전체 조회
+    @Operation(summary = "한 사용자의 게시물 전체 조회")
     @GetMapping("my-page/posts")
     public ResponseEntity<ApiResponse> getPostsByUserNo(@RequestHeader Map<String, String> requestHeader) {
 

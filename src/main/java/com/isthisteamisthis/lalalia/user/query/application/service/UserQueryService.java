@@ -33,7 +33,6 @@ public class UserQueryService {
 
         User user = userQueryRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid UserId"));
-        System.out.println("user = " + user.getEmail());
 
         // 사용자가 작성한 게시물 리스트 가져오기
         List<Post> postList = apiPostUserQueryService.getMyPostList(user.getUserNo());
