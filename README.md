@@ -4,8 +4,6 @@
 <img width="330" alt="image" src="https://github.com/isthisteamisthis/.github/assets/119282494/8e02f14a-df51-469b-ae4c-01a76b61154a">
 <br>
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fcca-ffodregamdi%2Frunning-hi-back&count_bg=%23FFA49F&title_bg=%24555555&icon=&icon_color=%24E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
-
 </div>
 <br>
 
