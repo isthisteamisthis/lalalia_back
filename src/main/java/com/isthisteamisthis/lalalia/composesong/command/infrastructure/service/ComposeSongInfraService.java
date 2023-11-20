@@ -26,8 +26,8 @@ public class ComposeSongInfraService {
 
         webClient.post()
                 .uri("/aicover")
-                .contentType(MediaType.MULTIPART_FORM_DATA)  // Set the content type here
-                .body(BodyInserters.fromMultipartData(bodyBuilder.build()))  // Use fromMultipartData instead of fromValue
+                .contentType(MediaType.MULTIPART_FORM_DATA)
+                .body(BodyInserters.fromMultipartData(bodyBuilder.build())) 
                 .accept(MediaType.MULTIPART_FORM_DATA)
                 .retrieve()
                 .toBodilessEntity()
