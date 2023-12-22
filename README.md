@@ -17,7 +17,7 @@
 <br>
 <br>
 
-### 🎤 시연영상
+### 🎤 시연영상 (클릭해주세요)
 
 [![Video Label](https://github.com/isthisteamisthis/.github/assets/88484476/5dadb0cc-a594-47aa-bfdd-a9245eb08870)](https://youtu.be/QluGKnN534Y)
 
